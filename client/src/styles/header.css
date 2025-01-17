@@ -1,5 +1,16 @@
 .top-header {
-  background-color: var(--color-dark);
-  border-bottom: 1px solid #e9ecef;
-  padding: 10px 0;
+    align-items: center;
+    background-color: var(--color-dark);
+    border-bottom: 1px solid #e9ecef;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.nav-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
 }

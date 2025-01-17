@@ -1,10 +1,10 @@
 import { Router } from 'express';
-import { ticketRouter } from './ticket-routes.js';
+import { ticketRouter } from './breeds-routes.js';
 import { userRouter } from './user-routes.js';
 
 const router = Router();
 
-router.use('/tickets', ticketRouter);
+router.use('/breeds', ticketRouter);
 router.use('/users', userRouter);
 
 export default router;

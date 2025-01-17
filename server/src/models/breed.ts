@@ -1,7 +1,7 @@
 import { DataTypes, Sequelize, Model, Optional } from 'sequelize';
 import { User } from './user';
 
-interface TicketAttributes {
+interface BreedAttributes {
   id: number;
   name: string;
   status: string;
@@ -9,9 +9,10 @@ interface TicketAttributes {
   assignedUserId?: number;
 }
 
-interface TicketCreationAttributes extends Optional<TicketAttributes, 'id'> {}
+interface BreedCreationAttributes extends Optional<BreedAttributes, 'id'> {}
 
-export class Ticket extends Model<TicketAttributes, TicketCreationAttributes> implements TicketAttributes {
+export class Breed extends Model<BreedAttributes, BreedCreationAttributes> implements BreedAttributes {
+  // TODO add breed information based on desired information
   public id!: number;
   public name!: string;
   public status!: string;
@@ -25,8 +26,8 @@ export class Ticket extends Model<TicketAttributes, TicketCreationAttributes> im
   public readonly updatedAt!: Date;
 }
 
-export function TicketFactory(sequelize: Sequelize): typeof Ticket {
-  Ticket.init(
+export function BreedFactory(sequelize: Sequelize): typeof Breed {
+  Breed.init(
     {
       id: {
         type: DataTypes.INTEGER,
@@ -51,10 +52,10 @@ export function TicketFactory(sequelize: Sequelize): typeof Ticket {
       },
     },
     {
-      tableName: 'tickets',
+      tableName: 'breeds',
       sequelize,
     }
   );
 
-  return Ticket;
+  return Breed;
 }
