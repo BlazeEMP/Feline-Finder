@@ -5,30 +5,32 @@ import Homepage from './pages/Homepage.tsx';
 import SavedCats from './pages/SavedCats.tsx';
 import './reset.css';
 import './index.css';
+import './styles/footer.css'
+import './styles/header.css'
 import App from './app.tsx';
 
 const Wrapper = () => {
 
-  const router = createBrowserRouter([
-    {
-      path: '/',
-      element: <App />,
-      errorElement: <ErrorPage />,
-      children: [
+    const router = createBrowserRouter([
         {
-          index: true,
-          element: <Homepage />,
+            path: '/',
+            element: <App />,
+            errorElement: <ErrorPage />,
+            children: [
+                {
+                    index: true,
+                    element: <Homepage />,
+                },
+                {
+                    path: '/SavedCandidates',
+                    element: <SavedCats />,
+                },
+            ],
         },
-        {
-          path: '/SavedCandidates',
-          element: <SavedCats />,
-        },
-      ],
-    },
-  ]);
-  return <RouterProvider router={router} />;
+    ]);
+    return <RouterProvider router={router} />;
 }
 const rootElement = document.getElementById('root');
 if (rootElement) {
-  ReactDOM.createRoot(rootElement).render(<Wrapper />);
+    ReactDOM.createRoot(rootElement).render(<Wrapper />);
 }
