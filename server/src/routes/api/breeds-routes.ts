@@ -9,20 +9,20 @@ import {
 
 const router = express.Router();
 
-// GET /tickets - Get all tickets
+// GET /breeds - Get all breeds
 router.get('/', getAllBreeds);
 
-// GET /tickets/:id - Get a ticket by id
+// GET /breeds/:id - Get a breed by id
 router.get('/:id', getBreedById);
 
-// POST /tickets - Create a new ticket
+// POST /breeds - Create a new breed
 router.post('/', createBreed);
 
 // readonly data stored, no modification put request needed?
-// // PUT /tickets/:id - Update a ticket by id
+// // PUT /breeds/:id - Update a ticket by id
 // router.put('/:id', updateTicket);
 
-// DELETE /tickets/:id - Delete a ticket by id
+// DELETE /breeds/:id - Delete a breed by id
 router.delete('/:id', deleteBreed);
 
 export { router as breedRouter };

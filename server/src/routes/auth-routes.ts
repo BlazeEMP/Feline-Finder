@@ -5,8 +5,9 @@ import bcrypt from 'bcrypt';
 
 export const login = async (req: Request, res: Response) => {
   // TODO: If the user exists and the password is correct, return a JWT token
-  // IMPORTANT!!! checkvalidity of code, verify if using email, id, username and password
+  // IMPORTANT!!! checkvalidity of code, verify if using email and password
   // IMPORTANT!!! if changing values to login like using email instead of username, change the values in the user-seeds.ts and user models.ts etc
+  //
 // const { email, password } = req.body;
 
 // try {

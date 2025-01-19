@@ -1,6 +1,8 @@
 import { Request, Response } from 'express';
 import { User } from '../models/user.js';
 
+// TODO fix to match user model and correct stored information
+
 // GET /Users
 export const getAllUsers = async (_req: Request, res: Response) => {
   try {

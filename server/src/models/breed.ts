@@ -2,18 +2,18 @@ import { DataTypes, Sequelize, Model, Optional } from 'sequelize';
 import { User } from './user';
 
 interface BreedAttributes {
-  id: number;
+  breedId: string;
   name: string;
   status: string;
   description: string;
   assignedUserId?: number;
 }
 
-interface BreedCreationAttributes extends Optional<BreedAttributes, 'id'> {}
+interface BreedCreationAttributes extends Optional<BreedAttributes, 'breedId'> {}
 
 export class Breed extends Model<BreedAttributes, BreedCreationAttributes> implements BreedAttributes {
   // TODO add breed information based on desired information
-  public id!: number;
+  public breedId!: string;
   public name!: string;
   public status!: string;
   public description!: string;

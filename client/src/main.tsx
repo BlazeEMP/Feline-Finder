@@ -22,7 +22,7 @@ const Wrapper = () => {
                     element: <Homepage />,
                 },
                 {
-                    path: '/SavedCandidates',
+                    path: '/SavedCats',
                     element: <SavedCats />,
                 },
             ],

@@ -2,7 +2,9 @@ import { Request, Response } from 'express';
 import { Breed } from '../models/breed.js';
 import { User } from '../models/user.js';
 
-// GET /tickets
+// TODO update the code to use the correct model and associations with correct information being posted
+
+// GET /breeds
 export const getAllBreeds = async (_req: Request, res: Response) => {
   try {
     const breeds = await Breed.findAll({
@@ -20,7 +22,7 @@ export const getAllBreeds = async (_req: Request, res: Response) => {
   }
 };
 
-// GET /tickets/:id
+// GET /breeds/:id
 export const getBreedById = async (req: Request, res: Response) => {
   const { id } = req.params;
   try {
@@ -43,7 +45,7 @@ export const getBreedById = async (req: Request, res: Response) => {
   }
 };
 
-// POST /tickets
+// POST /breeds
 export const createBreed = async (req: Request, res: Response) => {
   const { name, status, description, assignedUserId } = req.body;
   try {
@@ -54,7 +56,7 @@ export const createBreed = async (req: Request, res: Response) => {
   }
 };
 
-// PUT /tickets/:id
+// PUT /breeds/:id
 export const updateBreed = async (req: Request, res: Response) => {
   const { id } = req.params;
   const { name, status, description, assignedUserId } = req.body;
@@ -75,7 +77,7 @@ export const updateBreed = async (req: Request, res: Response) => {
   }
 };
 
-// DELETE /tickets/:id
+// DELETE /breeds/:id
 export const deleteBreed = async (req: Request, res: Response) => {
   const { id } = req.params;
   try {
