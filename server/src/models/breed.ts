@@ -29,7 +29,7 @@ export class Breed extends Model<BreedAttributes, BreedCreationAttributes> imple
 export function BreedFactory(sequelize: Sequelize): typeof Breed {
   Breed.init(
     {
-      id: {
+      breedId: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true,
