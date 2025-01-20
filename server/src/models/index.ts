@@ -18,8 +18,8 @@ const sequelize = process.env.DB_URL
 const User = UserFactory(sequelize);
 const Breed = BreedFactory(sequelize);
 
-User.hasMany(Ticket, { foreignKey: 'assignedUserId' });
-Ticket.belongsTo(User, { foreignKey: 'assignedUserId', as: 'assignedUser'});
+User.hasMany(Breed, { foreignKey: 'assignedUserId' });
+Breed.belongsTo(User, { foreignKey: 'assignedUserId', as: 'assignedUser'});
 
 // One-to-Many relationship for assigned breeds - ALTERNATE CODE TO REPLACE LINES 21-22 jan 19 nancy watreas
 // User.hasMany(Breed, { foreignKey: 'assignedUserId' });
@@ -30,5 +30,5 @@ Ticket.belongsTo(User, { foreignKey: 'assignedUserId', as: 'assignedUser'});
 // Breed.belongsToMany(User, { through: UserBreeds });
 
 
-export { sequelize, User, Ticket };
+export { sequelize, User, Breed };
 // export { sequelize, User, Breed };
