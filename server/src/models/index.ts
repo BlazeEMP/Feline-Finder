@@ -21,9 +21,15 @@ const User = UserFactory(sequelize);
 const Breed = BreedFactory(sequelize);
 const UserBreed = UserBreedFactory(sequelize);
 
+
+User.hasMany(Breed, { foreignKey: 'assignedUserId' });
+Breed.belongsTo(User, { foreignKey: 'assignedUserId', as: 'assignedUser'});
+
+
 // Many-to-Many relationship for saved breeds
 User.belongsToMany(Breed, { through: UserBreed });
 Breed.belongsToMany(User, { through: UserBreed });
+
 
 
 export { sequelize, User, Breed, UserBreed };
