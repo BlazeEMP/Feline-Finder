@@ -1,5 +1,6 @@
 const Homepage = () => {
-    async function handleBreedSave(event: React.MouseEvent<HTMLButtonElement, MouseEvent>): Promise<void> {
+    // async function handleBreedSave(event: React.MouseEvent<HTMLButtonElement, MouseEvent>): Promise<void> {
+    const handleBreedSave = async (event: React.MouseEvent<HTMLButtonElement>) => {  //modified jan 20 nancy watreas
         event.preventDefault();
         // TODO
         // make sure logic follows this...
@@ -9,7 +10,49 @@ const Homepage = () => {
         // 4.) if it hasnt been saved, save it to the user_breeds table under their email, if it has been saved, ignore the save request and move on
         // 5.) now that the new breed has been saved, or existing accessed, and also been saved to the user as a saved breed, we can render the next breed from our stored info from the initial API call
         // (the info should be stored in the state of the component, and we can just render the next breed in the list)
-        //
+        
+        try {   //lines 14 - 54 added jan 20 nancy watreas
+        //1.) check if bread exists and save if it doesn't
+            const breedResponse = await fetch('/api/breeds/check', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ breedId: currentBreed.id })
+            });
+
+            if (!breedResponse.ok) {
+        //2.) save breed first
+              await fetch('/api/breeds', {
+                method: 'POST',
+                headers:  {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(currentBreed)
+              });
+            }
+         //4.) save to user_breeds 
+            const saveResponse = await fetch('/api/user/breeds/save', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                },
+                body: JSON.stringify({ 
+                  breedId: currentBreed.id,
+                  userId: currentUser.id //will need to get from auth context
+                })
+            });
+
+            if (saveResponse.ok) {
+            //move to next breed Do we have an action for that already?
+            setCurrentBreedIndex(prev => + 1);
+            }
+          } catch (error) {
+            console.error('Error saving breed:', error);
+          }
+    };  
+        
         // const breed = "someBreed"; // Replace with actual breed data
         // try {
         //     const response = await fetch('/api/saveBreed', {
