@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { breedRouter } from './breeds-routes.js';
+import { breedRouter } from './breed-routes.js';
 import { userRouter } from './user-routes.js';
 
 const router = Router();
