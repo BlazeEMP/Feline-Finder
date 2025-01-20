@@ -2,17 +2,16 @@
 import { Breed } from './breed-seeds';
 
 export interface User {
-    readonly email: string;
-    readonly password: string;
+    readonly userId?: number;
     readonly savedBreeds: Breed[];
 }
 
 const userSeedData: User[] = [
     {
-        email: 'daniel@gmail.com',
-        password: '11101997',
+        userId: 1,
         savedBreeds: [
             {
+                id: 1,
                 name: 'Bengal',
                 imgUrl: 'https://cdn2.thecatapi.com/images/MTUwNjQwMw.jpg',
                 weight: '8-15',
@@ -24,6 +23,7 @@ const userSeedData: User[] = [
                 hairless: false
             },
             {
+                id: 2,
                 name: 'British Shorthair',
                 imgUrl: 'https://cdn2.thecatapi.com/images/MTUwNjQwMw.jpg',
                 weight: '7-17',
@@ -37,10 +37,10 @@ const userSeedData: User[] = [
         ]
     }, 
     {
-        email: 'nancy@gmail.com',
-        password: 'password',
+        userId: 2,
         savedBreeds: [
             {
+                id: 3,
                 name: 'Siamese',
                 imgUrl: 'https://cdn2.thecatapi.com/images/MTUwNjQwMw.jpg',
                 weight: '6-14',
@@ -52,6 +52,7 @@ const userSeedData: User[] = [
                 hairless: false
             },
             {
+                id: 2,
                 name: 'British Shorthair',
                 imgUrl: 'https://cdn2.thecatapi.com/images/MTUwNjQwMw.jpg',
                 weight: '7-17',
@@ -65,9 +66,21 @@ const userSeedData: User[] = [
         ],
     },
     {
-        email: 'paolo@gmail.com',
-        password: 'password',
-        savedBreeds: []
+        userId: 3,
+        savedBreeds: [
+            {
+                id: 3,
+                name: 'Siamese',
+                imgUrl: 'https://cdn2.thecatapi.com/images/MTUwNjQwMw.jpg',
+                weight: '6-14',
+                origin: 'Thailand',
+                description: 'The Siamese is one of the oldest and most recognizable breeds of domesticated cats. They are known for their striking blue almond-shaped eyes, large ears, short coat, and sleek, slender bodies.',
+                lifeSpan: '8-15',
+                childFriendly: '4',
+                dogFriendly: '4',
+                hairless: false
+            }
+        ]
     },    
 ];
 
