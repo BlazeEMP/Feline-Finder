@@ -1,9 +1,11 @@
+// TODO VERIFY WORKING WITH JOIN TABLE PROPERLY THEN MARK BELOW AS DONE IN NEXT LINE
 import dotenv from 'dotenv';
 dotenv.config();
 
 import { Sequelize } from 'sequelize';
 import { UserFactory } from './user.js';
 import { BreedFactory } from './breed.js';
+import { UserBreedFactory } from './user_breed.js';
 
 const sequelize = process.env.DB_URL
   ? new Sequelize(process.env.DB_URL)
@@ -17,18 +19,17 @@ const sequelize = process.env.DB_URL
 
 const User = UserFactory(sequelize);
 const Breed = BreedFactory(sequelize);
+const UserBreed = UserBreedFactory(sequelize);
+
 
 User.hasMany(Breed, { foreignKey: 'assignedUserId' });
 Breed.belongsTo(User, { foreignKey: 'assignedUserId', as: 'assignedUser'});
 
-// One-to-Many relationship for assigned breeds - ALTERNATE CODE TO REPLACE LINES 21-22 jan 19 nancy watreas
-// User.hasMany(Breed, { foreignKey: 'assignedUserId' });
-// Breed.belongsTo(User, { foreignKey: 'assignedUserId', as: 'assignedUser'});
 
 // Many-to-Many relationship for saved breeds
-// User.belongsToMany(Breed, { through: UserBreeds });
-// Breed.belongsToMany(User, { through: UserBreeds });
+User.belongsToMany(Breed, { through: UserBreed });
+Breed.belongsToMany(User, { through: UserBreed });
 
 
-export { sequelize, User, Breed };
-// export { sequelize, User, Breed };
+
+export { sequelize, User, Breed, UserBreed };

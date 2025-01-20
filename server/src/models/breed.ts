@@ -1,26 +1,30 @@
+// TODO VERIFY WORKING ADD A LINE UNDER THIS TO VERIFY THIS IS CORRECT ONCE FILE HAS BEEN DOUBLE CHECKED AFTER CUSTOM API DONE
 import { DataTypes, Sequelize, Model, Optional } from 'sequelize';
-import { User } from './user';
 
 interface BreedAttributes {
-  breedId: string;
-  name: string;
-  status: string;
+  breedName: string;
+  imgUrl: string;
+  weight: string;
+  lifespan: string;
+  origin: string;
+  hairless: boolean;
   description: string;
-  assignedUserId?: number;
+  dogFriendly: number;
+  childFriendly: number;
 }
 
-interface BreedCreationAttributes extends Optional<BreedAttributes, 'breedId'> {}
+interface BreedCreationAttributes extends Optional<BreedAttributes, 'breedName'> {}
 
 export class Breed extends Model<BreedAttributes, BreedCreationAttributes> implements BreedAttributes {
-  // TODO add breed information based on desired information
-  public breedId!: string;
-  public name!: string;
-  public status!: string;
-  public description!: string;
-  public assignedUserId!: number;
-
-  // associated User model
-  public readonly assignedUser?: User;
+  public readonly breedName!: string;
+  public readonly imgUrl!: string;
+  public readonly weight!: string;
+  public readonly lifespan!: string;
+  public readonly origin!: string;
+  public readonly hairless!: boolean;
+  public readonly description!: string;
+  public readonly dogFriendly!: number;
+  public readonly childFriendly!: number;
 
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
@@ -29,26 +33,41 @@ export class Breed extends Model<BreedAttributes, BreedCreationAttributes> imple
 export function BreedFactory(sequelize: Sequelize): typeof Breed {
   Breed.init(
     {
-      breedId: {
-        type: DataTypes.INTEGER,
-        autoIncrement: true,
+      breedName: {
+        type: DataTypes.STRING,
         primaryKey: true,
       },
-      name: {
+      imgUrl: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      status: {
+      weight: {
         type: DataTypes.STRING,
+        allowNull: false,
+      },
+      lifespan: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      origin: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      hairless: {
+        type: DataTypes.BOOLEAN,
         allowNull: false,
       },
       description: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      assignedUserId: {
+      dogFriendly: {
         type: DataTypes.INTEGER,
-        allowNull: true,
+        allowNull: false,
+      },
+      childFriendly: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
       },
     },
     {
