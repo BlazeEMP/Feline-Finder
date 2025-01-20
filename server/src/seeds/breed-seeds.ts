@@ -1,5 +1,6 @@
 // TODO build out seed data for 3 breeds
 export interface Breed {
+    readonly id: number;
     readonly name: string;
     readonly imgUrl: string;
     readonly weight: string;
@@ -8,11 +9,12 @@ export interface Breed {
     readonly lifeSpan: string;
     readonly childFriendly: string;
     readonly dogFriendly: string;
-    readonly hairless: boolean;
+    readonly hairless: boolean|number;
 }
 
 const seedData: Breed[] = [
     {
+        id: 1,
         name: 'Bengal',
         imgUrl: 'https://cdn2.thecatapi.com/images/MTUwNjQwMw.jpg',
         weight: '8-15',
@@ -21,9 +23,10 @@ const seedData: Breed[] = [
         lifeSpan: '12-16',
         childFriendly: '4',
         dogFriendly: '4',
-        hairless: false
+        hairless: 0, // 0 is false and 1 is true
     },
     {
+        id: 2,
         name: 'British Shorthair',
         imgUrl: 'https://cdn2.thecatapi.com/images/MTUwNjQwMw.jpg',
         weight: '7-17',
@@ -32,9 +35,10 @@ const seedData: Breed[] = [
         lifeSpan: '12-20',
         childFriendly: '4',
         dogFriendly: '4',
-        hairless: false
+        hairless: 0,
     },
     {
+        id: 3,
         name: 'Siamese',
         imgUrl: 'https://cdn2.thecatapi.com/images/MTUwNjQwMw.jpg',
         weight: '6-14',
@@ -43,7 +47,7 @@ const seedData: Breed[] = [
         lifeSpan: '8-15',
         childFriendly: '4',
         dogFriendly: '4',
-        hairless: false
+        hairless: 0,
     },
 ];
 
