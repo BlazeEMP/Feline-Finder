@@ -1,4 +1,9 @@
 // TODO VERIFY WORKING ADD A LINE UNDER THIS TO VERIFY THIS IS CORRECT ONCE FILE HAS BEEN DOUBLE CHECKED AFTER CUSTOM API DONE
+// To verify code - added jan-21-njw
+// to verify that the breed model mathces what is coming from the custom API
+// 1. compare breed attributes in our model with the data structure from the cat API we're using
+// 2. make sure all fields from the API map correctly in our model
+// 3. test that breed data can be saved and retrieved correctly
 import { DataTypes, Sequelize, Model, Optional } from 'sequelize';
 
 interface BreedAttributes {

@@ -1,4 +1,7 @@
 // TODO VERIFY WORKING WITH JOIN TABLE PROPERLY THEN MARK BELOW AS DONE IN NEXT LINE
+//to verify if Many-to-Many relationship for saved breeds is working:
+// 1. check that the user_breeds table is created in the database
+// 2. confirm that the relationships work when querying (i.e. you can get the user's saved breeds)
 import dotenv from 'dotenv';
 dotenv.config();
 

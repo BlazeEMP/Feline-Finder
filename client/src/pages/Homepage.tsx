@@ -1,6 +1,26 @@
-const Homepage = () => {
+const Homepage = () => {   //working on bugs and TODO list-jan-21-njw
+    //state for managing breeds
+    const [breeds, setBreeds] = useState<Breed[]>([]);
+    const [currentBreedIndex, setCurrentBreedIndex] = useState(0);
+
+    //fetch breeds on component mount
+    useEffect(() => {
+        const fetchBreeds = async () => {
+            try {
+                const response = await fetch('/api/breeds');
+                const data = await response.json();
+                setBreeds(data);
+            } catch (error) {
+              console.error('Error fetching breeds:', error);
+            }
+        };
+
+        fetchBreeds();
+    }, []);
+
+    const currentBreed = breeds[currentBreedIndex];
     // async function handleBreedSave(event: React.MouseEvent<HTMLButtonElement, MouseEvent>): Promise<void> {
-    const handleBreedSave = async (event: React.MouseEvent<HTMLButtonElement>) => {  //modified jan 20 nancy watreas
+    const handleBreedSave = async (event: React.MouseEvent<HTMLButtonElement>) => {  //modified jan-20-njw
         event.preventDefault();
         // TODO
         // make sure logic follows this...
@@ -11,47 +31,63 @@ const Homepage = () => {
         // 5.) now that the new breed has been saved, or existing accessed, and also been saved to the user as a saved breed, we can render the next breed from our stored info from the initial API call
         // (the info should be stored in the state of the component, and we can just render the next breed in the list)
         
-        try {   //lines 14 - 54 added jan 20 nancy watreas
-        //1.) check if bread exists and save if it doesn't
-            const breedResponse = await fetch('/api/breeds/check', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ breedId: currentBreed.id })
-            });
+        try {   //modified jan-20/jan-21-njw
+        //1.) check if bread exists 
+        const checkResponse = await fetch(`/api/breeds/check/${currentBreed.id}`);
+        const breedExists = await checkResponse.json();
 
-            if (!breedResponse.ok) {
-        //2.) save breed first
-              await fetch('/api/breeds', {
-                method: 'POST',
-                headers:  {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(currentBreed)
-              });
-            }
-         //4.) save to user_breeds 
-            const saveResponse = await fetch('/api/user/breeds/save', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`
-                },
-                body: JSON.stringify({ 
-                  breedId: currentBreed.id,
-                  userId: currentUser.id //will need to get from auth context
-                })
+        //if breed doesn't exist, save it
+        if (!breedExists) {
+            await fetch('/api/breeds', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(currentBreed)
             });
-
-            if (saveResponse.ok) {
-            //move to next breed Do we have an action for that already?
-            setCurrentBreedIndex(prev => + 1);
-            }
-          } catch (error) {
-            console.error('Error saving breed:', error);
           }
-    };  
+        //2.) save to user's breeds
+        const saveResponse = await fetch('/api/user/breeds/save', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            },
+            body: JSON.stringify({
+                breedId: currentBreed.id
+                // userId: currentUser.id //will need to get from auth context
+            })
+        });
+        // move to next breed
+        
+        if (saveResponse.ok) {
+        // Move to next breed - do we have an action for this? njw
+        setCurrentBreedIndex(prev => 
+          prev < breeds.length - 1 ? prev + 1 : prev
+        );
+      }
+    } catch (error) {
+      console.error('Error saving breed:', error);
+    }
+  };
+    
+  return (
+    <div>
+      {currentBreed && (
+        <>
+          <Card {...currentBreed} />
+          <div>
+            <button onClick={handleBreedSave}>Save Breed</button>
+          </div>
+        </>
+      )}
+    </div>
+);
+};
+
+export default Homepage;        
+                  
+           
+            
+             
         
         // const breed = "someBreed"; // Replace with actual breed data
         // try {
@@ -70,13 +106,4 @@ const Homepage = () => {
         // } catch (error) {
         //     console.error('Error saving breed:', error);
         // }
-    }
-
-    return (
-        <div>
-            <button onClick={handleBreedSave}>Save Breed</button>
-        </div>
-    );
-};
-
-export default Homepage;
+ 

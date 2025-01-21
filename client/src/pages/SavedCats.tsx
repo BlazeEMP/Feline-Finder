@@ -44,3 +44,37 @@ const SavedCats: React.FC = () => {
 };
 
 export default SavedCats;
+
+//ALTERNATE CODE FOR LINES 5-46 posted jan-21-njw
+//this replaces the empty compenent with functional code, using existing Card component to display breeds, fetches saved breeds using authenticated API endpoint, displays all saved breeds in grid layout - claude.ai
+// const SavedCats = () => {
+// const [savedBreeds, setSavedBreeds] = useState<Breed[]>([]);
+
+// useEffect(() => {
+//  const fetchSavedBreeds = async () => {
+//    const response = await fetch('/api/user/breeds', {
+//     headers: {
+//         'Authorization': `Bearer ${localStorage.getItem('token')}`
+//     }
+// });
+//   const data = await response.json();
+//    setSavedBreeds(data);
+//   } catch (error) {
+//     console.error('Error fetching saved breeds:', error);
+//   }
+// };
+
+// fetchSavedBreeds();
+// }, []);
+
+// return (
+//  <div>
+//     <h1>My Saved Cat Breeds</h1>
+//       <div className="breeds-grid">
+//       {savedBreeds.map((breed) => (
+//         <Card key={breed.id} {...breed} />
+//     ))}
+//   </div>
+// </div>
+//   );
+// };
