@@ -5,7 +5,7 @@ import Card from '../components/Card';
 
 const Homepage: React.FC = () => {
     const [breeds, setBreeds] = useState<Breed[]>([]);
-    const [currentBreedIndex, setCurrentBreedIndex] = useState(0);
+    const [currentIndex, setCurrentIndex] = useState(0);
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
@@ -27,7 +27,7 @@ const Homepage: React.FC = () => {
 
         if (!breeds.length) return;
 
-        const currentBreed = breeds[currentBreedIndex];
+        const currentBreed = breeds[currentIndex];
         try {
             // Step 1: Check if the breed exists in the database
             const breedExists = await checkBreedExists(currentBreed.id);
@@ -41,7 +41,7 @@ const Homepage: React.FC = () => {
             await saveUserBreed(currentBreed.id);
 
             // Step 4: Move to the next breed
-            setCurrentBreedIndex((prevIndex) =>
+            setCurrentIndex((prevIndex) =>
                 prevIndex < breeds.length - 1 ? prevIndex + 1 : 0 // Loop back to the start
             );
         } catch (err) {
@@ -51,12 +51,12 @@ const Homepage: React.FC = () => {
     };
 
     const handleNextBreed = () => {
-        setCurrentBreedIndex((prevIndex) =>
+        setCurrentIndex((prevIndex) =>
             prevIndex < breeds.length - 1 ? prevIndex + 1 : 0 // Loop back to the start
         );
     };
 
-    const currentBreed = breeds[currentBreedIndex];
+    const currentBreed = breeds[currentIndex];
 
     return (
         <div>
