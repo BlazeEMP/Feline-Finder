@@ -1,11 +1,30 @@
-import { Model, Sequelize } from 'sequelize';
+import { Model, Sequelize, DataTypes } from 'sequelize';
+import { User } from './user';
+import { Breed } from './breed';
 
-class UserBreed extends Model { };
+class UserBreed extends Model {};
 
 export function UserBreedFactory(sequelize: Sequelize): typeof UserBreed {
     UserBreed.init(
-        {},
         {
+            //first argument: model attributes
+            userId: {
+                type: DataTypes.INTEGER,
+                references: {
+                    model: User,
+                    key: 'id',
+                },
+            },
+            breedName: {
+                type: DataTypes.INTEGER,
+                references: {
+                    model: Breed,
+                    key: 'breedName',
+                },
+            },
+        },
+        {
+            tableName: 'user_breeds',
             sequelize,
         }
     );

@@ -1,4 +1,5 @@
 import { seedUsers } from './user-seeds.js';
+import { seedBreeds } from './breed-seeds.js';
 import { sequelize } from '../models/index.js';
 
 const seedAll = async (): Promise<void> => {
@@ -8,6 +9,12 @@ const seedAll = async (): Promise<void> => {
     
     await seedUsers();
     console.log('\n----- USERS SEEDED -----\n');
+
+    await seedBreeds();
+    console.log('\n----- BREEDS SEEDED -----\n');
+
+    await seedUserBreeds();
+    console.log('\n----- USER-BREEDS SEEDED -----\n');
     
     process.exit(0);
   } catch (error) {
