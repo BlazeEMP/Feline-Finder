@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Card from '../components/Card';
+import CardTwo from '../components/cardTwo';
 import type Breed from '../interfaces/breedInterface';
 
 const SavedCats: React.FC = () => {
@@ -42,6 +43,18 @@ const SavedCats: React.FC = () => {
                 usersSavedCats.map((breed) => (
                     <div key={breed.id}>
                         <Card
+                            id={breed.id}
+                            name={breed.name}
+                            imgUrl={breed.imgUrl}
+                            weight={breed.weight}
+                            origin={breed.origin}
+                            description={breed.description}
+                            lifeSpan={breed.lifeSpan}
+                            childFriendly={breed.childFriendly}
+                            dogFriendly={breed.dogFriendly}
+                            hairless={breed.hairless}
+                        />
+                        <CardTwo
                             id={breed.id}
                             name={breed.name}
                             imgUrl={breed.imgUrl}
