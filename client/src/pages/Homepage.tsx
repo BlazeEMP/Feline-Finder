@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import type Breed from '../interfaces/breedInterface'; //added import for Breed jan-21-njw
+import Card from '../components/Card';
 
 const Homepage = () => {   //working on bugs and TODO list-jan-21-njw
     //state for managing breeds
