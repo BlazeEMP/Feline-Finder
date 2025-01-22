@@ -3,7 +3,7 @@ import { authenticateToken } from '../../middleware/auth.js';//added jan-21-njw
 
 import {
   getAllBreeds,
-  getBreedById,
+  getBreedByName,
   createBreed,
   // updateBreed,
   deleteBreed,
@@ -15,7 +15,7 @@ const router = express.Router();
 router.get('/', getAllBreeds);
 
 // GET /breeds/:id - Get a breed by id
-router.get('/:id', getBreedById);
+router.get('/:id', getBreedByName);
 
 // POST /breeds - Create a new breed
 router.post('/', authenticateToken, createBreed);//added 'authenticateToken' jan-21-njw

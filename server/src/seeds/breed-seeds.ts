@@ -14,8 +14,7 @@ export interface Breed {
 
 const seedData: Breed[] = [
     {
-        id: 1,
-        name: 'Bengal',
+        breedName: 'Bengal',
         imgUrl: 'https://cdn2.thecatapi.com/images/MTUwNjQwMw.jpg',
         weight: '8-15',
         origin: 'United States',
@@ -26,8 +25,7 @@ const seedData: Breed[] = [
         hairless: 0, // 0 is false and 1 is true
     },
     {
-        id: 2,
-        name: 'British Shorthair',
+        breedName: 'British Shorthair',
         imgUrl: 'https://cdn2.thecatapi.com/images/MTUwNjQwMw.jpg',
         weight: '7-17',
         origin: 'United Kingdom',
@@ -38,8 +36,7 @@ const seedData: Breed[] = [
         hairless: 0,
     },
     {
-        id: 3,
-        name: 'Siamese',
+        breedName: 'Siamese',
         imgUrl: 'https://cdn2.thecatapi.com/images/MTUwNjQwMw.jpg',
         weight: '6-14',
         origin: 'Thailand',
