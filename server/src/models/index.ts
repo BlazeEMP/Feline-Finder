@@ -8,7 +8,7 @@ dotenv.config();
 import { Sequelize } from 'sequelize';
 import { UserFactory } from './user.js';
 import { BreedFactory } from './breed.js';
-import { UserBreedFactory } from './user_breed.js';
+import { UserBreedFactory } from './userBreed.js';
 
 const sequelize = process.env.DB_URL
   ? new Sequelize(process.env.DB_URL)

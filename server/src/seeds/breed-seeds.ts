@@ -1,51 +1,42 @@
-// TODO build out seed data for 3 breeds
-export interface Breed {
-    readonly id: number;
-    readonly name: string;
-    readonly imgUrl: string;
-    readonly weight: string;
-    readonly origin: string;
-    readonly description: string;
-    readonly lifeSpan: string;
-    readonly childFriendly: string;
-    readonly dogFriendly: string;
-    readonly hairless: boolean|number;
-}
+import { Breed } from '../models/index.js';
 
-const seedData: Breed[] = [
-    {
-        breedName: 'Bengal',
-        imgUrl: 'https://cdn2.thecatapi.com/images/MTUwNjQwMw.jpg',
-        weight: '8-15',
-        origin: 'United States',
-        description: 'Bengals are a relatively new breed of cat which was first bred in the U.S.A and came into existence in the early 1960s. They are known for their leopard-like spots, which are actually rosettes, and their sleek, muscular bodies.',
-        lifeSpan: '12-16',
-        childFriendly: '4',
-        dogFriendly: '4',
-        hairless: 0, // 0 is false and 1 is true
-    },
-    {
-        breedName: 'British Shorthair',
-        imgUrl: 'https://cdn2.thecatapi.com/images/MTUwNjQwMw.jpg',
-        weight: '7-17',
-        origin: 'United Kingdom',
-        description: 'The British Shorthair is a very popular breed of cat that originated in the United Kingdom. They are known for their round faces, stocky bodies, dense coats, and large, round eyes that are typically gold or copper in color.',
-        lifeSpan: '12-20',
-        childFriendly: '4',
-        dogFriendly: '4',
-        hairless: 0,
-    },
-    {
-        breedName: 'Siamese',
-        imgUrl: 'https://cdn2.thecatapi.com/images/MTUwNjQwMw.jpg',
-        weight: '6-14',
-        origin: 'Thailand',
-        description: 'The Siamese is one of the oldest and most recognizable breeds of domesticated cats. They are known for their striking blue almond-shaped eyes, large ears, short coat, and sleek, slender bodies.',
-        lifeSpan: '8-15',
-        childFriendly: '4',
-        dogFriendly: '4',
-        hairless: 0,
-    },
-];
-
-export default seedData;
+export const seedBreeds = async () => {
+    await Breed.bulkCreate([
+        {
+            id: 'abys',
+            name: 'Abyssinian',
+            imgUrl: 'https://cdn2.thecatapi.com/images/xnzzM6MBI.jpg',
+            weight: '7 - 10',
+            origin: 'Egypt',
+            description: 'The Abyssinian is easy to care for, and a joy to have in your home. They’re affectionate cats and love both people and other animals.',
+            lifeSpan: '14 - 15',
+            childFriendly: 3,
+            dogFriendly: 4,
+            hairless: 0, // 0 is false and 1 is true
+        },
+        {
+            id: 'aege',
+            name: 'Aegean',
+            imgUrl: 'https://cdn2.thecatapi.com/images/h19-vtIeX.jpg',
+            weight: '7 - 10',
+            origin: 'Greece',
+            description: 'Native to the Greek islands known as the Cyclades in the Aegean Sea, these are natural cats, meaning they developed without humans getting involved in their breeding. As a breed, Aegean Cats are rare, although they are numerous on their home islands. They are generally friendly toward people and can be excellent cats for families with children.',
+            lifeSpan: '9 - 12',
+            childFriendly: 4,
+            dogFriendly: 4,
+            hairless: 0,
+        },
+        {
+            id: 'bali',
+            name: 'Balinese',
+            imgUrl: 'https://cdn2.thecatapi.com/images/13MkvUreZ.jpg',
+            weight: '4 - 10',
+            origin: 'United States',
+            description: 'Balinese are curious, outgoing, intelligent cats with excellent communication skills. They are known for their chatty personalities and are always eager to tell you their views on life, love, and what you’ve served them for dinner.',
+            lifeSpan: '10 - 15',
+            childFriendly: 4,
+            dogFriendly: 5,
+            hairless: 0,
+        },
+    ]);
+};

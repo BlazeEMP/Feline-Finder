@@ -1,32 +1,28 @@
-// TODO VERIFY WORKING ADD A LINE UNDER THIS TO VERIFY THIS IS CORRECT ONCE FILE HAS BEEN DOUBLE CHECKED AFTER CUSTOM API DONE
-// To verify code - added jan-21-njw
-// to verify that the breed model matches what is coming from the custom API
-// 1. compare breed attributes in our model with the data structure from the cat API we're using
-// 2. make sure all fields from the API map correctly in our model
-// 3. test that breed data can be saved and retrieved correctly
-import { DataTypes, Sequelize, Model, Optional } from 'sequelize';
+import { DataTypes, Model, Optional, Sequelize } from 'sequelize';
 
 interface BreedAttributes {
-  breedName: string;
+  id: string;
+  name: string;
   imgUrl: string;
   weight: string;
-  lifespan: string;
+  lifeSpan: string;
   origin: string;
-  hairless: boolean;
+  hairless: number;
   description: string;
   dogFriendly: number;
   childFriendly: number;
 }
 
-interface BreedCreationAttributes extends Optional<BreedAttributes, 'breedName'> {}
+interface BreedCreationAttributes extends Optional<BreedAttributes, 'id'> {}
 
 export class Breed extends Model<BreedAttributes, BreedCreationAttributes> implements BreedAttributes {
-  public readonly breedName!: string;
+  public readonly id!: string;
+  public readonly name!: string;
   public readonly imgUrl!: string;
   public readonly weight!: string;
-  public readonly lifespan!: string;
+  public readonly lifeSpan!: string;
   public readonly origin!: string;
-  public readonly hairless!: boolean;
+  public readonly hairless!: number;
   public readonly description!: string;
   public readonly dogFriendly!: number;
   public readonly childFriendly!: number;
@@ -38,9 +34,14 @@ export class Breed extends Model<BreedAttributes, BreedCreationAttributes> imple
 export function BreedFactory(sequelize: Sequelize): typeof Breed {
   Breed.init(
     {
-      breedName: {
+      id: {
         type: DataTypes.STRING,
+        allowNull: false,
         primaryKey: true,
+      },
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false,
       },
       imgUrl: {
         type: DataTypes.STRING,
@@ -50,7 +51,7 @@ export function BreedFactory(sequelize: Sequelize): typeof Breed {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      lifespan: {
+      lifeSpan: {
         type: DataTypes.STRING,
         allowNull: false,
       },
@@ -59,7 +60,7 @@ export function BreedFactory(sequelize: Sequelize): typeof Breed {
         allowNull: false,
       },
       hairless: {
-        type: DataTypes.BOOLEAN,
+        type: DataTypes.NUMBER,
         allowNull: false,
       },
       description: {

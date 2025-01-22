@@ -1,5 +1,6 @@
 import { seedUsers } from './user-seeds.js';
 import { seedBreeds } from './breed-seeds.js';
+import { seedUserBreeds } from './userBreed-seeds.js';
 import { sequelize } from '../models/index.js';
 
 const seedAll = async (): Promise<void> => {
@@ -23,4 +24,5 @@ const seedAll = async (): Promise<void> => {
   }
 };
 
+// we don't need to export this, this will be run when we run the script to seed the database and call this file (see package.json)
 seedAll();

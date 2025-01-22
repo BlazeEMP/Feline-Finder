@@ -12,8 +12,8 @@ const SavedCats: React.FC = () => {
     //     const breeds = JSON.parse(localStorage.getItem('breeds') || '[]');
     //     const userId = 'user1'; // Replace with the actual logged-in user ID
 
-    //     const userBreedIds = savedBreeds[userId] || [];
-    //     const userBreeds = breeds.filter((breed: Breed) => userBreedIds.includes(breed.id));
+    //     const userids = savedBreeds[userId] || [];
+    //     const userBreeds = breeds.filter((breed: Breed) => userids.includes(breed.id));
 
     //     setUsersSavedCats(userBreeds);
     // }, []);
