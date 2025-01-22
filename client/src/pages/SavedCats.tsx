@@ -4,18 +4,37 @@ import type Breed from '../interfaces/breedInterface';
 
 const SavedCats: React.FC = () => {
     const [usersSavedCats, setUsersSavedCats] = useState<Breed[]>([]);
-
+    //commented out original code lines 9-18 and added lines 20-36 jan-21-njw
     // Fetch saved cats from local storage
+    // useEffect(() => {
+    //     const savedBreeds = JSON.parse(localStorage.getItem('savedBreeds') || '{}');
+    //     const breeds = JSON.parse(localStorage.getItem('breeds') || '[]');
+    //     const userId = 'user1'; // Replace with the actual logged-in user ID
+
+    //     const userBreedIds = savedBreeds[userId] || [];
+    //     const userBreeds = breeds.filter((breed: Breed) => userBreedIds.includes(breed.id));
+
+    //     setUsersSavedCats(userBreeds);
+    // }, []);
+    //removed local storage to fetch directly from API, added useEffect hook to fetch saved breeds jan-21-njw
     useEffect(() => {
-        const savedBreeds = JSON.parse(localStorage.getItem('savedBreeds') || '{}');
-        const breeds = JSON.parse(localStorage.getItem('breeds') || '[]');
-        const userId = 'user1'; // Replace with the actual logged-in user ID
-
-        const userBreedIds = savedBreeds[userId] || [];
-        const userBreeds = breeds.filter((breed: Breed) => userBreedIds.includes(breed.id));
-
-        setUsersSavedCats(userBreeds);
-    }, []);
+        const fetchSavedBreeds = async () => {
+          try {
+            const response = await fetch('/api/user/breeds', {
+              headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+              }
+            });
+            const data = await response.json();
+            setUsersSavedCats(data);
+          } catch (error) {
+            console.error('Error fetching saved breeds:', error);
+          }
+        };
+    
+        fetchSavedBreeds();
+      }, []);
+    
 
     return (
         <div>
@@ -45,36 +64,3 @@ const SavedCats: React.FC = () => {
 
 export default SavedCats;
 
-//ALTERNATE CODE FOR LINES 5-46 posted jan-21-njw
-//this replaces the empty compenent with functional code, using existing Card component to display breeds, fetches saved breeds using authenticated API endpoint, displays all saved breeds in grid layout - claude.ai
-// const SavedCats = () => {
-// const [savedBreeds, setSavedBreeds] = useState<Breed[]>([]);
-
-// useEffect(() => {
-//  const fetchSavedBreeds = async () => {
-//    const response = await fetch('/api/user/breeds', {
-//     headers: {
-//         'Authorization': `Bearer ${localStorage.getItem('token')}`
-//     }
-// });
-//   const data = await response.json();
-//    setSavedBreeds(data);
-//   } catch (error) {
-//     console.error('Error fetching saved breeds:', error);
-//   }
-// };
-
-// fetchSavedBreeds();
-// }, []);
-
-// return (
-//  <div>
-//     <h1>My Saved Cat Breeds</h1>
-//       <div className="breeds-grid">
-//       {savedBreeds.map((breed) => (
-//         <Card key={breed.id} {...breed} />
-//     ))}
-//   </div>
-// </div>
-//   );
-// };
