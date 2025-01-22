@@ -1,8 +1,14 @@
 import type Breed from '../interfaces/breedInterface';
 
+const API_KEY = import.meta.env.VITE_API_KEY;
+
 // Fetch all breeds from the API
 export const fetchBreeds = async (): Promise<Breed[]> => {
-    const response = await fetch('/api/breeds');
+    const response = await fetch(`https://api.thecatapi.com/v1/images?limit=100`,{
+        headers: {
+            'x-api-key': API_KEY,
+        }
+    });
     if (!response.ok) {
         throw new Error('Failed to fetch breeds');
     }
@@ -36,7 +42,7 @@ export const saveUserBreed = async (breedId: string): Promise<void> => {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            'Authorization': `Bearer ${localStorage.getItem(API_KEY)}`,
         },
         body: JSON.stringify({ breedId }),
     });
