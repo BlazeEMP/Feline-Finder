@@ -1,11 +1,11 @@
 import express from 'express';
 
 import {
-  getAllBreeds,
-  getBreedById,
-  createBreed,
-  // updateBreed,
-  deleteBreed,
+    getAllBreeds,
+    getBreedById,
+    createBreed,
+    // updateBreed,
+    deleteBreed,
 } from '../../controllers/breed-controller.js';
 
 const router = express.Router();

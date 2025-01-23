@@ -1,25 +1,16 @@
 import { Request, Response } from 'express';
-import { UserBreed } from '../models/userBreed.js';
-
-// GET /UserBreeds
-export const getAllUserBreeds = async (_req: Request, res: Response) => {
-    try {
-        const userBreeds = await UserBreed.findAll(/*{attributes: { exclude: ['password'] }}*/); // may be neede to exclude password if we use this to join the users table and the breeds table and display all the info
-        res.json(userBreeds);
-    } catch (error: any) {
-        res.status(500).json({ message: error.message });
-    }
-};
+import { User } from '../models/user.js';
 
 // GET /UserBreeds/:userId
 export const getUserBreedsById = async (req: Request, res: Response) => {
     const { userId } = req.params;
     try {
-        const userBreeds = await UserBreed.findAll({ where: { userId: userId } }/*{attributes: { exclude: ['password'] }}*/); // may be neede to exclude password if we use this to join the users table and the breeds table and display all the info
-        if (userBreeds) {
-            res.json(userBreeds);
+        const user = await User.findByPk(userId);
+        if (!user) {
+            res.status(404).json({ message: 'User not found' });
         } else {
-            res.status(404).json({ message: 'UserBreeds not found' });
+            const userBreeds = await user.getBreeds(/*{attributes: { exclude: ['password'] }}*/); // may be neede to exclude password if we use this to join the users table and the breeds table and display all the info
+            res.status(200).json(userBreeds);
         }
     } catch (error: any) {
         res.status(500).json({ message: error.message });
@@ -28,7 +19,7 @@ export const getUserBreedsById = async (req: Request, res: Response) => {
 
 // POST /UserBreeds
 export const createUserBreed = async (req: Request, res: Response) => {
-    const { userId, breedId } = req.body;
+    const { userId, breedId } = req.params;
     try {
         const newUser = await UserBreed.create({ userId, breedId });
         res.status(201).json(newUser);

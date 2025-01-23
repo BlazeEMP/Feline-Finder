@@ -7,6 +7,6 @@ const router = Router();
 
 router.use('/breeds', breedRouter);
 router.use('/users', userRouter);
-router.use('/user_breeds', userBreedRouter);
+router.use('/userBreeds', userBreedRouter);
 
 export default router;
