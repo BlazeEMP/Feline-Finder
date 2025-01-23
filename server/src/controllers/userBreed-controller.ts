@@ -1,3 +1,4 @@
+// TODO implement getAllUserBreeds for all users
 import { Request, Response } from 'express';
 import { User } from '../models/user.js';
 
@@ -18,11 +19,12 @@ export const getUserBreedsById = async (req: Request, res: Response) => {
 };
 
 // POST /UserBreeds
+// TODO implement using req.body to pass in userId and breedId and use GET example above for new format of finding user, and using user Mixin methods
 export const createUserBreed = async (req: Request, res: Response) => {
     const { userId, breedId } = req.params;
     try {
-        const newUser = await UserBreed.create({ userId, breedId });
-        res.status(201).json(newUser);
+        // const newUser = await UserBreed.create({ userId, breedId });
+        // res.status(201).json(newUser);
     } catch (error: any) {
         res.status(400).json({ message: error.message });
     }
@@ -30,7 +32,7 @@ export const createUserBreed = async (req: Request, res: Response) => {
 
 // TODO make sure this can get the breedId based on what button is being clicked on savedCats page
 // pass in the userId and delete from the join table only the row for the userId that also matches the breedId in the second column
-// DELETE /UserBreeds/:breedId
+// DELETE /UserBreeds/:userId/:breedId
 export const deleteUserBreed = async (req: Request, res: Response) => {
     const { userId, breedId } = req.params;
     //   try {
