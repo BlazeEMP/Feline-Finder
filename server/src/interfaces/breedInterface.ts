@@ -1,11 +1,12 @@
 export default interface Breed {
-    readonly breedName: string;
+    readonly id: string;
+    readonly name: string;
     readonly imgUrl: string;
     readonly weight: string;
-    readonly origin: string;
-    readonly description: string;
     readonly lifeSpan: string;
+    readonly origin: string;
+    readonly hairless: boolean|number;
+    readonly description: string;
     readonly childFriendly: number;
     readonly dogFriendly: number;
-    readonly hairless: boolean|number;
 }

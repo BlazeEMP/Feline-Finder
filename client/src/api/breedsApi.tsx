@@ -16,8 +16,8 @@ export const fetchBreeds = async (): Promise<Breed[]> => {
 };
 
 // Check if a breed exists in the database
-export const checkBreedExists = async (breedId: string): Promise<boolean> => {
-    const response = await fetch(`/api/breeds/check/${breedId}`);
+export const checkBreedExists = async (id: string): Promise<boolean> => {
+    const response = await fetch(`/api/breeds/check/${id}`);
     if (!response.ok) {
         throw new Error('Failed to check breed existence');
     }
@@ -37,14 +37,14 @@ export const saveBreed = async (breed: Breed): Promise<void> => {
 };
 
 // Save a breed to a user's saved breeds
-export const saveUserBreed = async (breedId: string): Promise<void> => {
+export const saveUserBreed = async (id: string): Promise<void> => {
     const response = await fetch('/api/user/breeds/save', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${localStorage.getItem(API_KEY)}`,
         },
-        body: JSON.stringify({ breedId }),
+        body: JSON.stringify({ id }),
     });
     if (!response.ok) {
         throw new Error('Failed to save breed to user');

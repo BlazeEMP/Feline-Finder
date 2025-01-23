@@ -1,59 +1,68 @@
-import { DataTypes, Sequelize, Model, Optional } from 'sequelize';
+import {
+    Model,
+    type InferAttributes,
+    type InferCreationAttributes,
+    type CreationOptional,
+    DataTypes,
+    type BelongsToManyAddAssociationMixin,
+    type BelongsToManyRemoveAssociationMixin,
+    type BelongsToManyGetAssociationsMixin,
+    type Sequelize,
+} from 'sequelize';
 import bcrypt from 'bcrypt';
+import { Breed } from './breed';
 
-interface UserAttributes {
-  id: number;
-  email: string;
-  password: string;
-}
+export class User extends Model<
+    InferAttributes<User>,
+    InferCreationAttributes<User>
+> {
+    // this is is serialized on creation, we won't decalre a users id manually
+    // BreedId will not be optional, it is a custom 4 character string from the API
+    declare id: CreationOptional<number>;
+    declare email: string;
+    declare password: string;
 
-interface UserCreationAttributes extends Optional<UserAttributes, 'id'> {}
+    declare addBreed: BelongsToManyAddAssociationMixin<Breed, Breed['id']>;
+    declare removeBreed: BelongsToManyRemoveAssociationMixin<Breed, Breed['id']>;
+    declare getBreeds: BelongsToManyGetAssociationsMixin<Breed>;
 
-export class User extends Model<UserAttributes, UserCreationAttributes> implements UserAttributes {
-  public id!: number;
-  public email!: string;
-  public password!: string;
-
-  public readonly createdAt!: Date;
-  public readonly updatedAt!: Date;
-
-  // Hash the password before saving the user
-  public async setPassword(password: string) {
-    const saltRounds = 10;
-    this.password = await bcrypt.hash(password, saltRounds);
-  }
-}
-
-export function UserFactory(sequelize: Sequelize): typeof User {
-  User.init(
-    {
-      id: {
-        type: DataTypes.INTEGER,
-        autoIncrement: true,
-        primaryKey: true,
-      },
-      email: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      password: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-    },
-    {
-      tableName: 'users',
-      sequelize,
-      hooks: {
-        beforeCreate: async (user: User) => {
-          await user.setPassword(user.password);
-        },
-        beforeUpdate: async (user: User) => {
-          await user.setPassword(user.password);
-        },
-      }
+    // Hash the password before saving the user
+    async setPassword(password: string) {
+        const saltRounds = 10;
+        this.password = await bcrypt.hash(password, saltRounds);
     }
-  );
+}
 
-  return User;
+export function UserFactory(sequelize: Sequelize) {
+    User.init(
+        {
+            id: {
+                type: DataTypes.INTEGER,
+                autoIncrement: true,
+                primaryKey: true,
+            },
+            email: {
+                type: DataTypes.STRING,
+                allowNull: false,
+            },
+            password: {
+                type: DataTypes.STRING,
+                allowNull: false,
+            },
+        },
+        {
+            tableName: 'users',
+            sequelize,
+            hooks: {
+                beforeCreate: async (user: User) => {
+                    await user.setPassword(user.password);
+                },
+                beforeUpdate: async (user: User) => {
+                    await user.setPassword(user.password);
+                },
+            }
+        }
+    );
+
+    return User;
 }
