@@ -4,7 +4,7 @@ import { useState, FormEvent, ChangeEvent } from "react";
 
 const Login = () => {
   const [loginData, setLoginData] = useState({
-    email: '',
+     email: '',
     password: ''
   });
 

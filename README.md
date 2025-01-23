@@ -19,7 +19,7 @@ This is an interactive Search App using a navigation component to search breeds 
 - [Contact](#contact)
 
 ## Installation
-## Installation To run this application locally, you'll need to have the following installed:  1. Node.js and npm (Node Package Manager) 2. PostgreSQL 3. Git  Then follow these steps:  1. Clone the repository: ```bash git clone [your-repository-url]
+`npm install` <!-- TODO: add installation packages/dependencies-->
 
 ## Usage
 `cd server npm start`
