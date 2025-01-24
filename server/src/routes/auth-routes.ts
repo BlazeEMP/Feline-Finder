@@ -1,7 +1,9 @@
 import { Router, Request, Response } from 'express';
 import { User } from '../models/user.js';
+import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
+dotenv.config();
 
 const router = Router();
 
@@ -12,10 +14,8 @@ export const login = async (req: Request, res: Response): Promise<Response> => {
     // IMPORTANT!!! checkvalidity of code, verify if using email and password
     // IMPORTANT!!! if changing values to login like using email instead of username, change the values in the user-seeds.ts and user models.ts etc
     try {
-        // Check if user exists
-        const user = await User.findOne({
-            where: { email }
-        });
+        // Lookup user, verify email and password
+        const user = await User.findOne({ where: { email } });
 
         if (!user) {
             return res.status(401).json({ message: 'Invalid email or password' });
@@ -30,20 +30,17 @@ export const login = async (req: Request, res: Response): Promise<Response> => {
         // Generate a JWT token
         const token = jwt.sign(
             { id: user.id, email: user.email },
-            'your_jwt_secret',
+            process.env.JWT_SECRET!,
             { expiresIn: '1h' }
         );
 
         // Return the token
-        // Return the token
         return res.json({ token });
-
     } catch (error) {
         return res.status(500).json({ message: 'Internal server error' });
     }
 };
 
-//define routes
 router.post('/login', login);
 
 export default router;
