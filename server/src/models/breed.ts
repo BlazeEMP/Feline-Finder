@@ -56,7 +56,7 @@ export function BreedFactory(sequelize: Sequelize): typeof Breed {
                 allowNull: false,
             },
             hairless: {
-                type: DataTypes.NUMBER,
+                type: DataTypes.INTEGER,
                 allowNull: false,
             },
             description: {

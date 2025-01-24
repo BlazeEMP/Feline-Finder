@@ -1,4 +1,3 @@
-// TODO create API routing for user_breeds table once it's figured out exactly how associations will be stored
 // TODO implement getAllUserBreeds for all users
 import express from 'express';
 
