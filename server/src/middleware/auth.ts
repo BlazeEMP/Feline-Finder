@@ -1,5 +1,12 @@
 //impliments JWT authentication middleware
 import { Request, Response, NextFunction } from 'express';  //modified file jan 21 nancy watreas
+
+// Extend the Request interface to include the user property
+declare module 'express-serve-static-core' {
+  interface Request {
+    user?: JwtPayload;
+  }
+}
 import jwt from 'jsonwebtoken';
 
 interface JwtPayload {
