@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import type Breed from '../interfaces/breedInterface';
 import { fetchBreeds, checkBreedExists, saveBreed, saveUserBreed } from '../api/breedsApi';
+import { fetchCatFact } from '../api/catFactsApi';
 import Card from '../components/Card';
 
 const Homepage: React.FC = () => {
     const [breeds, setBreeds] = useState<Breed[]>([]);
     const [currentIndex, setCurrentIndex] = useState(0);
+    const [catFact, setCatFact] = useState<string>('');
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
@@ -20,6 +22,20 @@ const Homepage: React.FC = () => {
         };
 
         loadBreeds();
+    }, []);
+
+    useEffect(() => {
+        const loadCatFact = async () => {
+            try {
+                const fact = await fetchCatFact();
+                setCatFact(fact);
+            } catch (err) {
+                console.error('Error fetching cat fact:', err);
+                setError('Failed to load cat fact. Please try again later.');
+            }
+        };
+
+        loadCatFact();
     }, []);
 
     const handleBreedSave = async (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -38,7 +54,7 @@ const Homepage: React.FC = () => {
             }
 
             // Step 3: Save the breed to the user's saved breeds
-            await saveUserBreed(currentBreed.id);
+            await saveUserBreed(currentBreed.breedName);
 
             // Step 4: Move to the next breed
             setCurrentIndex((prevIndex) =>
@@ -71,6 +87,15 @@ const Homepage: React.FC = () => {
                 </>
             ) : (
                 <p>Loading breeds...</p>
+            )}
+            {catFact ? (
+                <div>
+                <h3>Random Cat Fact!</h3>
+                <p>{catFact}</p>
+                </div>
+            ) : (
+                <p>Loading cat fact...</p>
+
             )}
         </div>
     );
