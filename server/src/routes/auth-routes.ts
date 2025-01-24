@@ -3,16 +3,14 @@ import { User } from '../models/user.js';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 
-
 const router = Router();
 
 export const login = async (req: Request, res: Response): Promise<Response> => {
     const { email, password } = req.body;
     // TODO: If the user exists and the password is correct, return a JWT token
-   
+
     // IMPORTANT!!! checkvalidity of code, verify if using email and password
     // IMPORTANT!!! if changing values to login like using email instead of username, change the values in the user-seeds.ts and user models.ts etc
-  
     try {
         // Check if user exists
         const user = await User.findOne({
@@ -37,18 +35,15 @@ export const login = async (req: Request, res: Response): Promise<Response> => {
         );
 
         // Return the token
-          // Return the token
-          return res.json({ token });
+        // Return the token
+        return res.json({ token });
 
-        } catch (error) {
-            return res.status(500).json({ message: 'Internal server error' });
-        }
-    };
- 
-
+    } catch (error) {
+        return res.status(500).json({ message: 'Internal server error' });
+    }
+};
 
 //define routes
 router.post('/login', login);
-
 
 export default router;
