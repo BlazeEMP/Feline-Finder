@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'; //added for routing
+//import { auth } from '../need client side auth.ts
 
 //changed 'username' to 'email' to match user model
 interface LoginFormData {
@@ -11,9 +12,10 @@ const Login: React.FC = () => {
     email: '',
     password: ''
   });
-  //added 'isLoggedIn state and conditional render
+  //added 'isLoggedIn state and conditional renderc
   const [isLoggedIn, setIsLoggedIn] = useState(false); 
   const navigate = useNavigate();
+
 //implemented JWT storage
 useEffect(() => {
   const token = localStorage.getItem('token');
