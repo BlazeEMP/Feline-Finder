@@ -21,7 +21,7 @@ const SavedCats: React.FC = () => {
     useEffect(() => {
         const fetchSavedBreeds = async () => {
           try {
-            const response = await fetch('/api/user/breeds', {
+            const response = await fetch('/api/userBreeds/:userId', {
               headers: {
                 'Authorization': `Bearer ${localStorage.getItem('token')}`
               }

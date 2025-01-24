@@ -2,7 +2,7 @@
 import { Request, Response } from 'express';
 import { User } from '../models/user.js';
 
-// GET /UserBreeds/:userId
+// GET /userBreeds/:userId
 export const getUserBreedsById = async (req: Request, res: Response) => {
     const { userId } = req.params;
     try {
@@ -17,7 +17,7 @@ export const getUserBreedsById = async (req: Request, res: Response) => {
     }
 };
 
-// POST /UserBreeds
+// POST /userBreeds
 // TODO check implement using req.body to pass in userId and breedId and use GET example above for new format of finding user, and using user Mixin methods
 export const createUserBreed = async (req: Request, res: Response) => {
     const { userId, breedId } = req.body;
@@ -39,8 +39,7 @@ export const createUserBreed = async (req: Request, res: Response) => {
 
 // TODO make sure this can get the breedId based on what button is being clicked on savedCats page
 // pass in the userId and delete from the join table only the row for the userId that also matches the breedId in the second column
-// TODO check this line for understanding
-// DELETE /UserBreeds/:userId&:breedId
+// DELETE /userBreeds/:userId/:breedId
 export const deleteUserBreed = async (req: Request, res: Response) => {
     const { userId, breedId } = req.params;
     try {

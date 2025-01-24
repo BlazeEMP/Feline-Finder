@@ -3,6 +3,7 @@ import { User } from '../models/user.js';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 
+
 const router = Router();
 
 export const login = async (req: Request, res: Response): Promise<Response> => {
@@ -11,7 +12,6 @@ export const login = async (req: Request, res: Response): Promise<Response> => {
    
     // IMPORTANT!!! checkvalidity of code, verify if using email and password
     // IMPORTANT!!! if changing values to login like using email instead of username, change the values in the user-seeds.ts and user models.ts etc
-    //
   
     try {
         // Check if user exists
