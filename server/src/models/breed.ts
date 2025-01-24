@@ -60,7 +60,7 @@ export function BreedFactory(sequelize: Sequelize): typeof Breed {
                 allowNull: false,
             },
             description: {
-                type: DataTypes.STRING,
+                type: DataTypes.STRING(1000),
                 allowNull: false,
             },
             dogFriendly: {
