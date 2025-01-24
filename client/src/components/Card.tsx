@@ -1,6 +1,6 @@
 import React from 'react';
 import type Breed from '../interfaces/breedInterface';
-import './breedCard.css';
+import '../styles/breedCard.css';
 
 const Card: React.FC<Breed> = ({ name, imgUrl, weight, origin, description, lifeSpan, childFriendly, dogFriendly, hairless }) => {
     return (
