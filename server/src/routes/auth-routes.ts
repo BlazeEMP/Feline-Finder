@@ -3,7 +3,6 @@ import { User } from '../models/user.js';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 
-
 const router = Router();
 
 export const login = async (req: Request, res: Response): Promise<Response> => {
@@ -44,10 +43,7 @@ export const login = async (req: Request, res: Response): Promise<Response> => {
     }
 };
 
-
-
 //define routes
 router.post('/login', login);
-
 
 export default router;

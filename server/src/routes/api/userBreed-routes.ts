@@ -1,4 +1,3 @@
-// TODO implement getAllUserBreeds for all users
 import express from 'express';
 
 import {

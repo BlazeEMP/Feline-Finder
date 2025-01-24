@@ -39,4 +39,3 @@ export const authenticateToken = (req: Request, res: Response, next: NextFunctio
         return res.status(403).json({ message: 'Invalid token' });
     }
 };
-
