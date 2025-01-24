@@ -54,7 +54,7 @@ const Homepage: React.FC = () => {
             }
 
             // Step 3: Save the breed to the user's saved breeds
-            await saveUserBreed(currentBreed.breedName);
+            await saveUserBreed(currentBreed.name);
 
             // Step 4: Move to the next breed
             setCurrentIndex((prevIndex) =>
