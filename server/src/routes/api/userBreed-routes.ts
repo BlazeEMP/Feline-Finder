@@ -16,6 +16,6 @@ router.get('/:userId', getUserBreedsById);
 router.post('/', createUserBreed);
 
 // DELETE /userBreeds/:userId/:breedId - Delete a user breed association (req.body should have userId and breedId)
-router.delete('/:userId&:breedId', deleteUserBreed);
+router.delete('/:userId/:breedId', deleteUserBreed);
 
 export { router as userBreedRouter };
