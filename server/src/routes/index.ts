@@ -7,5 +7,5 @@ const router = Router();
 
 router.use('/auth', authRoutes);
 console.log(authenticateToken);
-router.use('/api', authenticateToken, apiRoutes);// Added 'authenticateToken' to fix error line 4 jan-21-njw
+router.use('/api', apiRoutes);// Added 'authenticateToken' to fix error line 4 jan-21-njw
 export default router;

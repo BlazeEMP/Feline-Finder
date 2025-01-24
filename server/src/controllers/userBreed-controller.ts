@@ -1,4 +1,3 @@
-// TODO implement getAllUserBreeds for all users to view whole join table
 import { Request, Response } from 'express';
 import { User } from '../models/user.js';
 
