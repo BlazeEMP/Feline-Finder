@@ -1,5 +1,3 @@
-// TODO create API routing for user_breeds table once it's figured out exactly how associations will be stored
-// TODO implement getAllUserBreeds for all users
 import express from 'express';
 
 import {
@@ -17,6 +15,6 @@ router.get('/:userId', getUserBreedsById);
 router.post('/', createUserBreed);
 
 // DELETE /userBreeds/:userId/:breedId - Delete a user breed association (req.body should have userId and breedId)
-router.delete('/:userId&:breedId', deleteUserBreed);
+router.delete('/:userId/:breedId', deleteUserBreed);
 
 export { router as userBreedRouter };

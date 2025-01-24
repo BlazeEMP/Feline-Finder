@@ -2,7 +2,7 @@
 import { Request, Response } from 'express';
 import { User } from '../models/user.js';
 
-// GET /UserBreeds/:userId
+// GET /userBreeds/:userId
 export const getUserBreedsById = async (req: Request, res: Response) => {
     const { userId } = req.params;
     try {
@@ -17,8 +17,9 @@ export const getUserBreedsById = async (req: Request, res: Response) => {
     }
 };
 
-// POST /UserBreeds
+// POST /userBreeds - Create a new user breed association in the through table
 // TODO check implement using req.body to pass in userId and breedId and use GET example above for new format of finding user, and using user Mixin methods
+// TODO this should have authorization middleware to check the logged in user is the one saving the breed to their list
 export const createUserBreed = async (req: Request, res: Response) => {
     const { userId, breedId } = req.body;
     try {
@@ -38,9 +39,8 @@ export const createUserBreed = async (req: Request, res: Response) => {
 };
 
 // TODO make sure this can get the breedId based on what button is being clicked on savedCats page
-// pass in the userId and delete from the join table only the row for the userId that also matches the breedId in the second column
-// TODO check this line for understanding
-// DELETE /UserBreeds/:userId&:breedId
+// TODO this should have authorization middleware to check the logged in user is the one deleting the breed from their list
+// DELETE /userBreeds/:userId/:breedId - Delete a user breed association from the through table
 export const deleteUserBreed = async (req: Request, res: Response) => {
     const { userId, breedId } = req.params;
     try {

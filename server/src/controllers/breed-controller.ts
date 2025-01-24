@@ -28,7 +28,7 @@ export const getBreedById = async (req: Request, res: Response) => {
 
 // POST /breeds
 export const createBreed = async (req: Request, res: Response) => {
-    const { id , name, imgUrl, weight, lifeSpan, origin, hairless, description, dogFriendly, childFriendly } = req.body;
+    const { id, name, imgUrl, weight, lifeSpan, origin, hairless, description, dogFriendly, childFriendly } = req.body;
     try {
         const newBreed = await Breed.create({ id, name, imgUrl, weight, lifeSpan, origin, hairless, description, dogFriendly, childFriendly });
         res.status(201).json(newBreed);
