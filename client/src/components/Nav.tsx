@@ -5,7 +5,8 @@ const Nav = () => {
         <>
             <div className='nav-column'>
                 <span>Navigation</span>
-                <NavLink to='/'>Home</NavLink>
+                <NavLink to='/'>Login</NavLink>
+                <NavLink to='/Homepage'>Home</NavLink>
                 <NavLink to='/SavedCats'>Potential Cat Breeds</NavLink>
             </div>
         </>

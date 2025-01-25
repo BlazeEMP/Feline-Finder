@@ -1,3 +1,6 @@
+// TODO get login working and modify as needed.
+// 1.) once logged in userBreed associations should be made to through table on button clicks on homepage
+// 2.) when not logged in the messages for not being logged in should be displayed across each page and where API calls that need authentication are made (/userBreed calls on saved cats page, and save button on homepage)
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'; //added for routing
 //import { auth } from '../need client side auth.ts

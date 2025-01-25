@@ -1,6 +1,7 @@
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import ErrorPage from './pages/ErrorPage.tsx';
+import Login from './pages/Login.tsx';
 import Homepage from './pages/Homepage.tsx';
 import SavedCats from './pages/SavedCats.tsx';
 import './reset.css';
@@ -19,6 +20,10 @@ const Wrapper = () => {
             children: [
                 {
                     index: true,
+                    element: <Login />,
+                },
+                {
+                    path: '/Homepage',
                     element: <Homepage />,
                 },
                 {

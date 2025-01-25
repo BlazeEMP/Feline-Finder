@@ -14,7 +14,9 @@ const Homepage: React.FC = () => {
         const loadBreeds = async () => {
             try {
                 const data = await fetchBreeds();
+                // TODO : Set the breeds state with the fetched data but we need to structure the saved items to match our interface for breed
                 setBreeds(data);
+                console.log(data); // TODO: Remove this line
             } catch (err) {
                 setError('Failed to fetch breeds. Please try again later.');
                 console.error(err);
@@ -73,7 +75,7 @@ const Homepage: React.FC = () => {
     };
 
     const currentBreed = breeds[currentIndex];
-
+    console.log(currentBreed); // TODO: Remove this line
     return (
         <div>
             {error && <p style={{ color: 'red' }}>{error}</p>}

@@ -1,10 +1,10 @@
 import type Breed from '../interfaces/breedInterface';
 
-const API_KEY = import.meta.env.VITE_API_KEY;
+const API_KEY = import.meta.env.THE_CAT_API;
 
 // Fetch all breeds from the API
 export const fetchBreeds = async (): Promise<Breed[]> => {
-    const response = await fetch(`https://api.thecatapi.com/v1/images?limit=100`,{
+    const response = await fetch(`https://api.thecatapi.com/v1/images/search?limit=100&has_breeds=1`,{
         headers: {
             'x-api-key': API_KEY,
         }
