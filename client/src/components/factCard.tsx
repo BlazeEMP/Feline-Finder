@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import './factCard.css';
+import '../styles/factCard.css';
 
 const FactCard: React.FC = () => {
     const [fact, setFact] = useState<string>('');
