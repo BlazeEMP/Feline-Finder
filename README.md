@@ -1,4 +1,5 @@
 # Interactive Full-Stack App 'Cat-astrophe' 
+
 ![MIT](https://img.shields.io/badge/License-MIT-blue)
 
 ## Website: 
@@ -22,7 +23,7 @@ This is an interactive Search App using a navigation component to search breeds 
 `npm install` <!-- TODO: add installation packages/dependencies-->
 
 ## Usage
-`cd server npm start`
+`cd server npm run dev`
 
 ## Credits
 Primary contributors: Daniel Blair, Paolo Sierra; Secondary contributor: Nancy Watreas
@@ -34,8 +35,8 @@ MIT
 This application consist of **ADD CONTENT
 
 ## Tests
-1. Start server: `cd server npm start`
-2. Start React development server: `cd client npm start`
+1. Start server: `cd server npm run dev`
+2. Start React development server: `cd client npm run dev`
 
 ## Contact
 If there are any questions or concerns, we can be reached at:
