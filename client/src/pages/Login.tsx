@@ -23,7 +23,7 @@ const Login: React.FC = () => {
         const token = localStorage.getItem('token');
         if (token) {
             setIsLoggedIn(true);
-            navigate('/');
+            navigate('/Homepage');
         }
     }, [navigate]);
 
@@ -51,7 +51,7 @@ const Login: React.FC = () => {
             if (response.ok) {
                 localStorage.setItem('token', data.token);
                 setIsLoggedIn(true);
-                navigate('/homepage');
+                navigate('/');
             } else {
                 throw new Error(data.message || 'Login failed');
             }
@@ -71,7 +71,7 @@ const Login: React.FC = () => {
                 <h1>Login</h1>
                 <label >Email</label>
                 <input
-                    type='emal'
+                    type='email'
                     name='email'
                     value={loginData.email}
                     onChange={handleChange}

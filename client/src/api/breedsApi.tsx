@@ -1,12 +1,12 @@
 import type Breed from '../interfaces/breedInterface';
 
-const API_KEY = import.meta.env.THE_CAT_API;
+const API_KEY = import.meta.env.VITE_THE_CAT_API;
 
-// Fetch all breeds from the API
+// Fetch 100 cats from the API
 export const fetchBreeds = async (): Promise<Breed[]> => {
     const response = await fetch(`https://api.thecatapi.com/v1/images/search?limit=100&has_breeds=1`,{
         headers: {
-            'x-api-key': `${API_KEY}`,
+            'x-api-key': API_KEY,
         }
     });
     if (!response.ok) {
@@ -16,6 +16,7 @@ export const fetchBreeds = async (): Promise<Breed[]> => {
 };
 
 // Check if a breed exists in the database
+// TODO test in taandem with saveBreed function in insomnia
 export const checkBreedExists = async (id: string): Promise<boolean> => {
     const response = await fetch(`/api/breeds/check/${id}`);
     if (!response.ok) {
@@ -25,6 +26,7 @@ export const checkBreedExists = async (id: string): Promise<boolean> => {
 };
 
 // Save a breed to the database
+// TODO test this function in insomnia
 export const saveBreed = async (breed: Breed): Promise<void> => {
     const response = await fetch('/api/breeds', {
         method: 'POST',
@@ -37,12 +39,14 @@ export const saveBreed = async (breed: Breed): Promise<void> => {
 };
 
 // Save a breed to a user's saved breeds
+// TODO fix to route to userBreeds saving by user id of logged in user decoded from JWT
 export const saveUserBreed = async (id: string): Promise<void> => {
     const response = await fetch('/api/user/breeds/save', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${localStorage.getItem(API_KEY)}`,
+            // TODO Delete next line? unused?
+            // 'Authorization': `Bearer ${localStorage.getItem(API_KEY)}`,
         },
         body: JSON.stringify({ id }),
     });
