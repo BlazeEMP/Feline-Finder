@@ -4,6 +4,38 @@ import { fetchBreeds, checkBreedExists, saveBreed, saveUserBreed } from '../api/
 import { fetchCatFact } from '../api/catFactsApi';
 import Card from '../components/Card';
 
+function extractCatData(data: any) {
+    const catData = data.breeds.map((breed: any) => {
+        const {
+            weight: { imperial: weight_imperial },
+            id,
+            name,
+            origin,
+            description,
+            life_span,
+            child_friendly,
+            dog_friendly,
+            hairless,
+        } = breed;
+        const { url } = data;
+
+        return {
+            weight: weight_imperial,
+            id,
+            name,
+            origin,
+            description,
+            lifeSpan: life_span,
+            childFriendly: child_friendly,
+            dogFriendly: dog_friendly,
+            hairless,
+            imgUrl: url, 
+        };
+    });
+
+    return catData;
+}
+
 const Homepage: React.FC = () => {
     const [breeds, setBreeds] = useState<Breed[]>([]);
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -15,8 +47,10 @@ const Homepage: React.FC = () => {
             try {
                 const data = await fetchBreeds();
                 // TODO : Set the breeds state with the fetched data but we need to structure the saved items to match our interface for breed
-                setBreeds(data);
                 console.log(data); // TODO: Remove this line
+                const structuredData = extractCatData(data);
+                setBreeds(structuredData);
+                console.log(structuredData); // TODO: Remove this line
             } catch (err) {
                 setError('Failed to fetch breeds. Please try again later.');
                 console.error(err);
@@ -82,18 +116,18 @@ const Homepage: React.FC = () => {
             {currentBreed ? (
                 <>
                     <Card {...currentBreed} />
-                    <div>
-                        <button onClick={handleBreedSave}>Save Breed</button>
-                        <button onClick={handleNextBreed}>Next Breed</button>
+                    <div className= "button-container">
+                        <button className="button" onClick={handleBreedSave}>Save Breed</button>
+                        <button className="button" onClick={handleNextBreed}>Next Breed</button>
                     </div>
                 </>
             ) : (
                 <p>Loading breeds...</p>
             )}
             {catFact ? (
-                <div>
+                <div className="fact-card">
                 <h3>Random Cat Fact!</h3>
-                <p>{catFact}</p>
+                <p className="fact-card-text">{catFact}</p>
                 </div>
             ) : (
                 <p>Loading cat fact...</p>
