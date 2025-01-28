@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import type Breed from '../interfaces/breedInterface';
-import { fetchBreeds, checkBreedExists, saveBreed, saveUserBreed } from '../api/breedsApi';
+import { fetchBreeds, saveBreed, saveUserBreed } from '../api/breedsApi';
 import { fetchCatFact } from '../api/catFactsApi';
 import Card from '../components/Card';
 
@@ -84,15 +84,11 @@ const Homepage: React.FC = () => {
 
         const currentBreed = breeds[currentIndex];
         try {
-            // Step 1: Check if the breed exists in the database
-            const breedExists = await checkBreedExists(currentBreed.id);
-
+            // Step 1: Check if the breed exists in the database (happens inside of saveBreed)
             // Step 2: If it doesn't exist, save it
-            if (!breedExists) {
-                await saveBreed(currentBreed);
-            }
+            await saveBreed(currentBreed);
 
-            // Step 3: Save the breed to the user's saved breeds
+            // Step 3: Save the breed to the user's saved breeds now that the cat definitely exists in the table so we can join them
             await saveUserBreed(currentBreed.name);
 
             // Fetch a new cat fact when the breed is saved
@@ -120,10 +116,8 @@ const Homepage: React.FC = () => {
     };
 
     // this will handle loading a breed once the breeds array gets populated or we update the index
-    useEffect(() => {
-        const currentBreed = breeds[currentIndex];
-        console.log(currentBreed); // TODO: Remove this line
-    }, [currentIndex, breeds]);
+    const currentBreed = breeds[currentIndex];
+    console.log(currentBreed); // TODO: Remove this line
 
     return (
         <div>
@@ -131,7 +125,7 @@ const Homepage: React.FC = () => {
             {currentBreed ? (
                 <>
                     <Card {...currentBreed} />
-                    <div className= "button-container">
+                    <div className="button-container">
                         <button className="button" onClick={handleBreedSave}>Save Breed</button>
                         <button className="button" onClick={handleNextBreed}>Next Breed</button>
                     </div>
@@ -141,8 +135,8 @@ const Homepage: React.FC = () => {
             )}
             {catFact ? (
                 <div className="fact-card">
-                <h3>Random Cat Fact!</h3>
-                <p className="fact-card-text">{catFact}</p>
+                    <h3>Random Cat Fact!</h3>
+                    <p className="fact-card-text">{catFact}</p>
                 </div>
             ) : (
                 <p>Loading cat fact...</p>
