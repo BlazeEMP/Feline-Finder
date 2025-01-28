@@ -5,35 +5,38 @@ import { fetchCatFact } from '../api/catFactsApi';
 import Card from '../components/Card';
 
 function extractCatData(data: any) {
-    const catData = data.breeds.map((breed: any) => {
+    //TODO: Extract the data from the API response and and map through the array of objects to return the required data
+    return data.map((item: any) => {
         const {
-            weight: { imperial: weight_imperial },
-            id,
-            name,
-            origin,
-            description,
-            life_span,
-            child_friendly,
-            dog_friendly,
-            hairless,
-        } = breed;
-        const { url } = data;
+            breeds: [
+                {
+                    weight: { imperial: weight },
+                    id,
+                    name,
+                    origin,
+                    description,
+                    life_span: lifeSpan,
+                    child_friendly: childFriendly,
+                    dog_friendly: dogFriendly,
+                    hairless,
+                },
+            ],
+            url: imgUrl, // Extract the image URL from the top level
+        } = item;
 
         return {
-            weight: weight_imperial,
             id,
             name,
+            imgUrl,
+            weight,
+            lifeSpan,
             origin,
+            hairless: Boolean(hairless), // Convert 0/1 to boolean
             description,
-            lifeSpan: life_span,
-            childFriendly: child_friendly,
-            dogFriendly: dog_friendly,
-            hairless,
-            imgUrl: url, 
+            childFriendly,
+            dogFriendly,
         };
     });
-
-    return catData;
 }
 
 const Homepage: React.FC = () => {
@@ -92,6 +95,10 @@ const Homepage: React.FC = () => {
             // Step 3: Save the breed to the user's saved breeds
             await saveUserBreed(currentBreed.name);
 
+            // Fetch a new cat fact when the breed is saved
+            const fact = await fetchCatFact();
+            setCatFact(fact);
+
             // Step 4: Move to the next breed
             setCurrentIndex((prevIndex) =>
                 prevIndex < breeds.length - 1 ? prevIndex + 1 : 0 // Loop back to the start
@@ -102,10 +109,14 @@ const Homepage: React.FC = () => {
         }
     };
 
-    const handleNextBreed = () => {
+    const handleNextBreed = async () => {
         setCurrentIndex((prevIndex) =>
             prevIndex < breeds.length - 1 ? prevIndex + 1 : 0 // Loop back to the start
         );
+
+        // Fetch a new cat fact when the next breed is displayed
+        const fact = await fetchCatFact();
+        setCatFact(fact);
     };
 
     // this will handle loading a breed once the breeds array gets populated or we update the index
