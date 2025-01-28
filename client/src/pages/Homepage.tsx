@@ -5,7 +5,11 @@ import { fetchCatFact } from '../api/catFactsApi';
 import Card from '../components/Card';
 
 function extractCatData(data: any) {
-    const catData = data.breeds.map((breed: any) => {
+    //TODO: Extract the data from the API response and and map through the array of objects to return the required data
+    //
+    const catData = data.map((breed: any) => {
+        console.log(breed); // TODO: Remove this line
+        
         const {
             weight: { imperial: weight_imperial },
             id,
@@ -16,7 +20,7 @@ function extractCatData(data: any) {
             child_friendly,
             dog_friendly,
             hairless,
-        } = breed;
+        } = breed ;
         const { url } = data;
 
         return {
