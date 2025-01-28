@@ -1,0 +1,23 @@
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 16px; /* Space between buttons */
+    margin-top: 16px;
+}
+
+/* Style for individual buttons */
+.button {
+    background-color: #007BFF; /* Primary color */
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Hover effect for buttons */
+.button:hover {
+    background-color: #0056b3; /* Darker blue */
+}

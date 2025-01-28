@@ -4,11 +4,14 @@ import ErrorPage from './pages/ErrorPage.tsx';
 import Login from './pages/Login.tsx';
 import Homepage from './pages/Homepage.tsx';
 import SavedCats from './pages/SavedCats.tsx';
+import App from './app.tsx';
 import './reset.css';
 import './index.css';
 import './styles/footer.css'
 import './styles/header.css'
-import App from './app.tsx';
+import './styles/factCard.css';
+import './styles/breedCard.css';
+import './styles/button.css';
 
 const Wrapper = () => {
 
