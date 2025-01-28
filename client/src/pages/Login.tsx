@@ -51,7 +51,7 @@ const Login: React.FC = () => {
             if (response.ok) {
                 localStorage.setItem('token', data.token);
                 setIsLoggedIn(true);
-                navigate('/');
+                navigate('/homepage');
             } else {
                 throw new Error(data.message || 'Login failed');
             }

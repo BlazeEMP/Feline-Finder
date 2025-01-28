@@ -7,7 +7,7 @@ export const fetchBreeds = async (): Promise<Breed[]> => {
     console.log('API-KEY', API_KEY);
     const response = await fetch(`https://api.thecatapi.com/v1/images/search?limit=100&has_breeds=1`,{
         headers: {
-            'x-api-key': API_KEY,
+            'x-api-key': `${API_KEY}`,
         }
     });
     if (!response.ok) {
