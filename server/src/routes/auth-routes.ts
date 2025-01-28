@@ -20,8 +20,6 @@ export const getUserIdFromToken = (token: string): number | null => {
 
 export const login = async (req: Request, res: Response): Promise<Response> => {
     const { email, password } = req.body;
-    // TODO: If the user exists and the password is correct, return a JWT token
-    // TODO verify this token makes it into local storage
     try {
         // Lookup user, verify email and password
         const user = await User.findOne({ where: { email } });

@@ -47,10 +47,10 @@ const Homepage: React.FC = () => {
             try {
                 const data = await fetchBreeds();
                 // TODO : Set the breeds state with the fetched data but we need to structure the saved items to match our interface for breed
-                console.log(data); // TODO: Remove this line
+                console.log('data from fetchBreeds():', data); // TODO: Remove this line
                 const structuredData = extractCatData(data);
+                console.log('structuredData from extractCatData():', structuredData); // TODO: Remove this line
                 setBreeds(structuredData);
-                console.log(structuredData); // TODO: Remove this line
             } catch (err) {
                 setError('Failed to fetch breeds. Please try again later.');
                 console.error(err);
@@ -108,8 +108,12 @@ const Homepage: React.FC = () => {
         );
     };
 
-    const currentBreed = breeds[currentIndex];
-    console.log(currentBreed); // TODO: Remove this line
+    // this will handle loading a breed once the breeds array gets populated or we update the index
+    useEffect(() => {
+        const currentBreed = breeds[currentIndex];
+        console.log(currentBreed); // TODO: Remove this line
+    }, [currentIndex, breeds]);
+
     return (
         <div>
             {error && <p style={{ color: 'red' }}>{error}</p>}
@@ -138,4 +142,3 @@ const Homepage: React.FC = () => {
 };
 
 export default Homepage;
- 

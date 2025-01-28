@@ -16,7 +16,6 @@ const SavedCats: React.FC = () => {
         const fetchSavedBreeds = async () => {
             try {
                 const token = localStorage.getItem('token');
-                console.log(token); // TODO: Remove this line
                 if (!token) {
                     console.error('No token found');
                     return;

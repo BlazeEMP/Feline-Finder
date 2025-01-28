@@ -1,5 +1,5 @@
 // TODO get login working and modify as needed.
-// 1.) once logged in userBreed associations should be made to through table on button clicks on homepage
+// 1.) once logged in userBreed associations should be made to the through table on button clicks on homepage
 // 2.) when not logged in the messages for not being logged in should be displayed across each page and where API calls that need authentication are made (/userBreed calls on saved cats page, and save button on homepage)
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'; //added for routing
@@ -15,14 +15,14 @@ const Login: React.FC = () => {
         email: '',
         password: ''
     });
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    // const [isLoggedIn, setIsLoggedIn] = useState(false);
     const navigate = useNavigate();
 
     //implemented JWT storage
     useEffect(() => {
         const token = localStorage.getItem('token');
         if (token) {
-            setIsLoggedIn(true);
+            // setIsLoggedIn(true);
             navigate('/Homepage');
         }
     }, [navigate]);
@@ -50,8 +50,8 @@ const Login: React.FC = () => {
 
             if (response.ok) {
                 localStorage.setItem('token', data.token);
-                setIsLoggedIn(true);
-                navigate('/');
+                // setIsLoggedIn(true);
+                navigate('/Homepage');
             } else {
                 throw new Error(data.message || 'Login failed');
             }
@@ -61,32 +61,41 @@ const Login: React.FC = () => {
         }
     };
 
-    if (isLoggedIn) {
-        return <div>Already logged in. Redirecting...</div>;
-    }
-
     return (
-        <div className='container'>
-            <form className='form' onSubmit={handleSubmit}>
-                <h1>Login</h1>
-                <label >Email</label>
-                <input
-                    type='email'
-                    name='email'
-                    value={loginData.email}
-                    onChange={handleChange}
-                    required //made fields required
-                />
-                <label>Password</label>
-                <input
-                    type='password'
-                    name='password'
-                    value={loginData.password}
-                    onChange={handleChange}
-                />
-                <button type='submit'>Login</button>
-            </form>
-        </div>
+        <>
+            {localStorage.getItem('token') != null ? (
+                <>
+                    <p>You are already logged in.</p>
+                    <button onClick={() => {
+                        localStorage.removeItem('token');
+                        // setIsLoggedIn(false);
+                    }}>Logout</button>
+                </>
+            ) : (
+                <div className='container'>
+                    <form className='form' onSubmit={handleSubmit}>
+                        <h1>Login</h1>
+                        <label >Email</label>
+                        <input
+                            type='email'
+                            name='email'
+                            value={loginData.email}
+                            onChange={handleChange}
+                            required={true}
+                        />
+                        <label>Password</label>
+                        <input
+                            type='password'
+                            name='password'
+                            value={loginData.password}
+                            onChange={handleChange}
+                            required={true}
+                        />
+                        <button type='submit'>Login</button>
+                    </form>
+                </div>
+            )}
+        </>
     );
 };
 
