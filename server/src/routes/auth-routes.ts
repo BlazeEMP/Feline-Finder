@@ -9,13 +9,13 @@ const router = Router();
 
 // TODO export const function that returns user ID from token payload - updated jan-25-njw
 export const getUserIdFromToken = (token: string): number | null => {
-   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET!) as { id: number };
-    return decoded.id;
-   } catch (error) {
-     return null;
-   }
-// parse out id from token on this line  
+    try {
+        const decoded = jwt.verify(token, process.env.JWT_SECRET!) as { id: number };
+        return decoded.id;
+    } catch (error) {
+        return null;
+    }
+    // parse out id from token on this line  
 };
 
 export const login = async (req: Request, res: Response): Promise<Response> => {
@@ -47,7 +47,7 @@ export const login = async (req: Request, res: Response): Promise<Response> => {
             user: {
                 id: user.id,
                 email: user.email
-            } 
+            }
         });
     } catch (error) {
         return res.status(500).json({ message: 'Internal server error' });
@@ -60,7 +60,7 @@ export const verifyToken = async (req: Request, res: Response): Promise<Response
     const token = req.headers.authorization?.split(' ')[1];
 
     if (!token) {
-        return res.status(401).json({ message: 'No token provided '});
+        return res.status(401).json({ message: 'No token provided ' });
     }
 
     try {
