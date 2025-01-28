@@ -8,6 +8,7 @@
     padding: 16px;
     font-family: 'Arial', sans-serif;
     text-align: center;
+    color: var(--color-dark);
 }
 
 /* Text inside the fact card */
