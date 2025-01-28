@@ -2,9 +2,9 @@ import type Breed from '../interfaces/breedInterface';
 
 const API_KEY = import.meta.env.VITE_THE_CAT_API;
 
-// Fetch all breeds from the API
+// Fetch 100 cats from the API
 export const fetchBreeds = async (): Promise<Breed[]> => {
-    const response = await fetch(`https://api.thecatapi.com/v1/images/search?limit=100&has_breeds=1`,{
+    const response = await fetch(`https://api.thecatapi.com/v1/images/search?limit=100&has_breeds=1`, {
         headers: {
             'x-api-key': API_KEY,
         }
@@ -16,16 +16,22 @@ export const fetchBreeds = async (): Promise<Breed[]> => {
 };
 
 // Check if a breed exists in the database
-export const checkBreedExists = async (id: string): Promise<boolean> => {
-    const response = await fetch(`/api/breeds/check/${id}`);
+// TODO test in taandem with saveBreed function in insomnia
+export const checkBreedExists = async (breedId: string): Promise<boolean> => {
+    const response = await fetch(`/api/breeds/${breedId}`);
     if (!response.ok) {
-        throw new Error('Failed to check breed existence');
+        return false;
     }
-    return response.json();
+    return true;
 };
 
 // Save a breed to the database
+// TODO test this function in insomnia
 export const saveBreed = async (breed: Breed): Promise<void> => {
+    if (await checkBreedExists(breed.id)) {
+        console.warn('Breed ID is already stored, not saving duplicate to breeds table, moving on to JOIN table');
+        return;
+    }
     const response = await fetch('/api/breeds', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -37,12 +43,13 @@ export const saveBreed = async (breed: Breed): Promise<void> => {
 };
 
 // Save a breed to a user's saved breeds
+// TODO fix to route to userBreeds saving by user id of logged in user decoded from JWT
 export const saveUserBreed = async (id: string): Promise<void> => {
-    const response = await fetch('/api/user/breeds/save', {
+    const response = await fetch('/api/userBreeds', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${localStorage.getItem(API_KEY)}`,
+            // 'Authorization': `Bearer ${localStorage.getItem('token')}`, // TODO add auth implemented on adding breeds through table, should check JWT for auth and userID
         },
         body: JSON.stringify({ id }),
     });
