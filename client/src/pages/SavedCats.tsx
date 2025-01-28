@@ -9,7 +9,8 @@ const SavedCats: React.FC = () => {
     useEffect(() => {
         const fetchSavedBreeds = async () => {
             try {
-                //const user = // TODO get user id from JWT token;
+                // const token = localStorage.getItem('token');// TODO get user id from JWT token;
+                // const userId = ; // token parsed out user id
                 // TODO change userId back to variable when we have JWT token
                 const response = await fetch(`/api/userBreeds/${1}`, {
                     headers: {
