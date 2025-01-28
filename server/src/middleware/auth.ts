@@ -9,7 +9,7 @@ declare module 'express-serve-static-core' {
 import jwt from 'jsonwebtoken';
 
 interface JwtPayload {
-    username: string;
+    email: string;
 }
 
 export const authenticateToken = (req: Request, res: Response, next: NextFunction) => {
