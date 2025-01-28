@@ -71,7 +71,7 @@ const Login: React.FC = () => {
                 <h1>Login</h1>
                 <label >Email</label>
                 <input
-                    type='emal'
+                    type='email'
                     name='email'
                     value={loginData.email}
                     onChange={handleChange}

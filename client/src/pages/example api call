@@ -44,20 +44,21 @@
 //     "height": 1936
 // }
 
-// function extractCatData(data: any) {
-//     const catData = data.breeds.map((breed: any) => {
-//         const {
-//             weight: { imperial: weight_imperial },
-//             id,
-//             name,
-//             origin,
-//             description,
-//             life_span,
-//             child_friendly,
-//             dog_friendly,
-//             hairless,
-//         } = breed;
-//         const { url } = data;
+// pass in breed from state
+function extractCatData(data: any) {
+    const catData = data.breeds.map((breed: any) => {
+        const {
+            weight: { imperial: weight_imperial },
+            id,
+            name,
+            origin,
+            description,
+            life_span,
+            child_friendly,
+            dog_friendly,
+            hairless,
+        } = breed;
+        const { url } = data;
 
 //         return {
 //             weight_imperial,
