@@ -13,32 +13,29 @@ import './styles/factCard.css';
 import './styles/breedCard.css';
 import './styles/button.css';
 
-const Wrapper = () => {
+const router = createBrowserRouter([
+    {
+        path: '/',
+        element: <App />,
+        errorElement: <ErrorPage />,
+        children: [
+            {
+                index: true,
+                element: <Login />,
+            },
+            {
+                path: '/homepage',
+                element: <Homepage />,
+            },
+            {
+                path: '/savedcats',
+                element: <SavedCats />,
+            },
+        ],
+    },
+]);
 
-    const router = createBrowserRouter([
-        {
-            path: '/',
-            element: <App />,
-            errorElement: <ErrorPage />,
-            children: [
-                {
-                    index: true,
-                    element: <Login />,
-                },
-                {
-                    path: '/Homepage',
-                    element: <Homepage />,
-                },
-                {
-                    path: '/SavedCats',
-                    element: <SavedCats />,
-                },
-            ],
-        },
-    ]);
-    return <RouterProvider router={router} />;
-}
 const rootElement = document.getElementById('root');
 if (rootElement) {
-    ReactDOM.createRoot(rootElement).render(<Wrapper />);
+    ReactDOM.createRoot(rootElement).render(<RouterProvider router={router} />);
 }
