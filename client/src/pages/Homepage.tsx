@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import type Breed from '../interfaces/breedInterface';
 import type DecodedToken from '../interfaces/decodedTokenInterface';
-import { fetchBreeds, checkBreedExists, saveBreed, saveUserBreed } from '../api/breedsApi';
+import { fetchBreeds, saveBreed, saveUserBreed } from '../api/breedsApi';
 import { fetchCatFact } from '../api/catFactsApi';
 import { jwtDecode } from 'jwt-decode';
 import Card from '../components/Card';
@@ -82,19 +82,9 @@ const Homepage: React.FC = () => {
         const currentBreed = breeds[currentIndex];
         try {
             // Step 1: Check if the breed exists in the database (happens inside of saveBreed)
-            const isBreed = await checkBreedExists(currentBreed.id);
-            console.log('the breed exists?', isBreed);
             // Step 2: If it doesn't exist, save it
-            if (!isBreed) {
-                console.log('about to save breed');
-                await saveBreed(currentBreed);
-            } else {
-                console.log('Breed already exists in the database');
-            }
-
+            await saveBreed(currentBreed);
             // Step 3: Save the breed to the user's saved breeds now that the cat definitely exists in the table so we can join them
-
-            console.log('about to save user breed');
 
             const token = localStorage.getItem('token');
             if (!token) {

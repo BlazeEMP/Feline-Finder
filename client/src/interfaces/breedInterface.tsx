@@ -5,7 +5,7 @@ export default interface Breed {
     readonly weight: string;
     readonly lifeSpan: string;
     readonly origin: string;
-    readonly hairless: boolean|number;
+    readonly hairless: boolean;
     readonly description: string;
     readonly childFriendly: number;
     readonly dogFriendly: number;

@@ -29,27 +29,32 @@ export const getBreedById = async (req: Request, res: Response) => {
 // POST /breeds
 export const createBreed = async (req: Request, res: Response) => {
     const { id, name, imgUrl, weight, lifeSpan, origin, hairless, description, dogFriendly, childFriendly } = req.body;
+    const breed = await Breed.findByPk(id);
     try {
-        const newBreed = await Breed.create({ id, name, imgUrl, weight, lifeSpan, origin, hairless, description, dogFriendly, childFriendly });
-        res.status(201).json(newBreed);
-    } catch (error: any) {
-        res.status(400).json({ message: error.message });
-    }
-};
-
-// DELETE /breeds/:id
-// BE VERY CAREFUL, there will be a join table referencing the breed saved by any user, if you delete a breed that is saved by a user, it will break the join table information
-export const deleteBreed = async (req: Request, res: Response) => {
-    const { id } = req.params;
-    try {
-        const breed = await Breed.findByPk(id);
         if (breed) {
-            await breed.destroy();
-            res.json({ message: 'Breed deleted' });
+            return res.status(200).json({ message: 'Breed already exists' });
         } else {
-            res.status(404).json({ message: 'Breed not found' });
+            const newBreed = await Breed.create({ id, name, imgUrl, weight, lifeSpan, origin, hairless, description, dogFriendly, childFriendly });
+            return res.status(201).json(newBreed);
         }
-    } catch (error: any) {
-        res.status(500).json({ message: error.message });
-    }
-};
+        } catch (error: any) {
+            return res.status(400).json({ message: error.message });
+        }
+    };
+
+    // DELETE /breeds/:id
+    // BE VERY CAREFUL, there will be a join table referencing the breed saved by any user, if you delete a breed that is saved by a user, it will break the join table information
+    export const deleteBreed = async (req: Request, res: Response) => {
+        const { id } = req.params;
+        try {
+            const breed = await Breed.findByPk(id);
+            if (breed) {
+                await breed.destroy();
+                res.json({ message: 'Breed deleted' });
+            } else {
+                res.status(404).json({ message: 'Breed not found' });
+            }
+        } catch (error: any) {
+            res.status(500).json({ message: error.message });
+        }
+    };
