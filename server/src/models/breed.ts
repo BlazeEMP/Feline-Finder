@@ -7,7 +7,7 @@ interface BreedAttributes {
     weight: string;
     lifeSpan: string;
     origin: string;
-    hairless: number;
+    hairless: boolean;
     description: string;
     dogFriendly: number;
     childFriendly: number;
@@ -20,7 +20,7 @@ export class Breed extends Model<BreedAttributes> implements BreedAttributes {
     public readonly weight!: string;
     public readonly lifeSpan!: string;
     public readonly origin!: string;
-    public readonly hairless!: number;
+    public readonly hairless!: boolean;
     public readonly description!: string;
     public readonly dogFriendly!: number;
     public readonly childFriendly!: number;
@@ -56,7 +56,7 @@ export function BreedFactory(sequelize: Sequelize): typeof Breed {
                 allowNull: false,
             },
             hairless: {
-                type: DataTypes.INTEGER,
+                type: DataTypes.BOOLEAN,
                 allowNull: false,
             },
             description: {
