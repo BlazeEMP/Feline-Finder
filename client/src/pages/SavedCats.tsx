@@ -2,14 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { jwtDecode } from "jwt-decode";
 import Card from '../components/Card';
 import type Breed from '../interfaces/breedInterface';
+import type DecodedToken from '../interfaces/decodedTokenInterface';
 
 const SavedCats: React.FC = () => {
     const [usersSavedCats, setUsersSavedCats] = useState<Breed[]>([]);
-    // use this when parsing from JWT since type of id doesnt exist in JWTPayload but can be parsed out from it
-    interface DecodedToken {
-        id: string;
-        // add other properties if needed
-    }
     
     //removed local storage to fetch directly from API, added useEffect hook to fetch saved breeds jan-21-njw
     useEffect(() => {

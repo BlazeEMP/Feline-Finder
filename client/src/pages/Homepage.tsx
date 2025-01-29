@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import type Breed from '../interfaces/breedInterface';
-import { fetchBreeds, checkBreedExists, saveBreed, saveUserBreed } from '../api/breedsApi';
+import type DecodedToken from '../interfaces/decodedTokenInterface';
+import { fetchBreeds, saveBreed, saveUserBreed } from '../api/breedsApi';
 import { fetchCatFact } from '../api/catFactsApi';
+import { jwtDecode } from 'jwt-decode';
 import Card from '../components/Card';
 
 function extractCatData(data: any) {
@@ -50,9 +52,8 @@ const Homepage: React.FC = () => {
                 const data = await fetchBreeds();
                 const structuredData = extractCatData(data);
                 setBreeds(structuredData);
-            } catch (err) {
-                setError('Failed to fetch breeds. Please try again later.');
-                console.error(err);
+            } catch (err: any) {
+                console.error('Failed to fetch breeds. Please try again later.', err);
             }
         };
 
@@ -76,22 +77,24 @@ const Homepage: React.FC = () => {
     const handleBreedSave = async (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
 
-        if (!breeds.length) return;
-
         const currentBreed = breeds[currentIndex];
         try {
-            // Step 1: Check if the breed exists in the database
-            const breedExists = await checkBreedExists(currentBreed.id);
-
+            // Step 1: Check if the breed exists in the database (happens inside of saveBreed)
             // Step 2: If it doesn't exist, save it
-            if (!breedExists) {
-                await saveBreed(currentBreed);
-            }
+            await saveBreed(currentBreed);
+            // Step 3: Save the breed to the user's saved breeds now that the cat definitely exists in the table so we can join them
 
-            // Step 3: Save the breed to the user's saved breeds
-            await saveUserBreed(currentBreed.name);
+            const token = localStorage.getItem('token');
+            if (!token) {
+                console.error('No token found when saving userBreed join');
+                return;
+            }
+            const decodedToken = jwtDecode<DecodedToken>(token); // token parsed out with jwtDecode library
+            const userId = decodedToken.id; // userId extracted from decoded token
+            await saveUserBreed(userId, currentBreed.id);
 
             // Fetch a new cat fact when the breed is saved
+            console.log('about to fetch cat fact');
             const fact = await fetchCatFact();
             setCatFact(fact);
 

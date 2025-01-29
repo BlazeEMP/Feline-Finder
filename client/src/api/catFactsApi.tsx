@@ -1,6 +1,6 @@
 export const fetchCatFact = async (): Promise<string> => {
     try {
-        const response = await fetch('https://meowfacts.herokuapp.com/?count=100');
+        const response = await fetch('https://meowfacts.herokuapp.com');
         if (!response.ok) {
             throw new Error('Failed to fetch cat facts');
         }

@@ -12,7 +12,7 @@ export const seedBreeds = async () => {
             lifeSpan: '14 - 15',
             childFriendly: 3,
             dogFriendly: 4,
-            hairless: 0, // 0 is false and 1 is true
+            hairless: false,
         },
         {
             id: 'aege',
@@ -24,7 +24,7 @@ export const seedBreeds = async () => {
             lifeSpan: '9 - 12',
             childFriendly: 4,
             dogFriendly: 4,
-            hairless: 0,
+            hairless: false,
         },
         {
             id: 'bali',
@@ -36,7 +36,7 @@ export const seedBreeds = async () => {
             lifeSpan: '10 - 15',
             childFriendly: 4,
             dogFriendly: 5,
-            hairless: 0,
+            hairless: false,
         },
     ]);
 };
