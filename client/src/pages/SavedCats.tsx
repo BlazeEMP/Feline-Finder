@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import { jwtDecode } from "jwt-decode";
 import Card from '../components/Card';
 import type Breed from '../interfaces/breedInterface';
+import type DecodedToken from '../interfaces/decodedTokenInterface';
 
 const SavedCats: React.FC = () => {
     const [usersSavedCats, setUsersSavedCats] = useState<Breed[]>([]);
@@ -9,9 +11,14 @@ const SavedCats: React.FC = () => {
     useEffect(() => {
         const fetchSavedBreeds = async () => {
             try {
-                //const user = // TODO get user id from JWT token;
-                // TODO change userId back to variable when we have JWT token
-                const response = await fetch(`/api/userBreeds/${1}`, {
+                const token = localStorage.getItem('token');
+                if (!token) {
+                    console.error('No token found');
+                    return;
+                }
+                const decodedToken = jwtDecode<DecodedToken>(token); // token parsed out with jwtDecode library
+                const userId = decodedToken.id; // userId extracted from decoded token
+                const response = await fetch(`/api/userBreeds/${userId}`, {
                     headers: {
                         'Authorization': `Bearer ${localStorage.getItem('token')}`
                     }

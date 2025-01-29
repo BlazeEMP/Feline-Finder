@@ -1,39 +1,44 @@
 import React, { useState, useEffect } from 'react';
 import type Breed from '../interfaces/breedInterface';
+import type DecodedToken from '../interfaces/decodedTokenInterface';
 import { fetchBreeds, checkBreedExists, saveBreed, saveUserBreed } from '../api/breedsApi';
 import { fetchCatFact } from '../api/catFactsApi';
+import { jwtDecode } from 'jwt-decode';
 import Card from '../components/Card';
 
 function extractCatData(data: any) {
-    const catData = data.breeds.map((breed: any) => {
+    //TODO: Extract the data from the API response and and map through the array of objects to return the required data
+    return data.map((item: any) => {
         const {
-            weight: { imperial: weight_imperial },
-            id,
-            name,
-            origin,
-            description,
-            life_span,
-            child_friendly,
-            dog_friendly,
-            hairless,
-        } = breed;
-        const { url } = data;
+            breeds: [
+                {
+                    weight: { imperial: weight },
+                    id,
+                    name,
+                    origin,
+                    description,
+                    life_span: lifeSpan,
+                    child_friendly: childFriendly,
+                    dog_friendly: dogFriendly,
+                    hairless,
+                },
+            ],
+            url: imgUrl, // Extract the image URL from the top level
+        } = item;
 
         return {
-            weight: weight_imperial,
             id,
             name,
+            imgUrl,
+            weight,
+            lifeSpan,
             origin,
+            hairless: Boolean(hairless), // Convert 0/1 to boolean
             description,
-            lifeSpan: life_span,
-            childFriendly: child_friendly,
-            dogFriendly: dog_friendly,
-            hairless,
-            imgUrl: url, 
+            childFriendly,
+            dogFriendly,
         };
     });
-
-    return catData;
 }
 
 const Homepage: React.FC = () => {
@@ -47,13 +52,10 @@ const Homepage: React.FC = () => {
             try {
                 const data = await fetchBreeds();
                 // TODO : Set the breeds state with the fetched data but we need to structure the saved items to match our interface for breed
-                console.log(data); // TODO: Remove this line
                 const structuredData = extractCatData(data);
                 setBreeds(structuredData);
-                console.log(structuredData); // TODO: Remove this line
-            } catch (err) {
-                setError('Failed to fetch breeds. Please try again later.');
-                console.error(err);
+            } catch (err: any) {
+                console.error('Failed to fetch breeds. Please try again later.', err);
             }
         };
 
@@ -77,20 +79,36 @@ const Homepage: React.FC = () => {
     const handleBreedSave = async (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
 
-        if (!breeds.length) return;
-
         const currentBreed = breeds[currentIndex];
         try {
-            // Step 1: Check if the breed exists in the database
-            const breedExists = await checkBreedExists(currentBreed.id);
-
+            // Step 1: Check if the breed exists in the database (happens inside of saveBreed)
+            const isBreed = await checkBreedExists(currentBreed.id);
+            console.log('the breed exists?', isBreed);
             // Step 2: If it doesn't exist, save it
-            if (!breedExists) {
+            if (!isBreed) {
+                console.log('about to save breed');
                 await saveBreed(currentBreed);
+            } else {
+                console.log('Breed already exists in the database');
             }
 
-            // Step 3: Save the breed to the user's saved breeds
-            await saveUserBreed(currentBreed.name);
+            // Step 3: Save the breed to the user's saved breeds now that the cat definitely exists in the table so we can join them
+
+            console.log('about to save user breed');
+
+            const token = localStorage.getItem('token');
+            if (!token) {
+                console.error('No token found when saving userBreed join');
+                return;
+            }
+            const decodedToken = jwtDecode<DecodedToken>(token); // token parsed out with jwtDecode library
+            const userId = decodedToken.id; // userId extracted from decoded token
+            await saveUserBreed(userId, currentBreed.id);
+
+            // Fetch a new cat fact when the breed is saved
+            console.log('about to fetch cat fact');
+            const fact = await fetchCatFact();
+            setCatFact(fact);
 
             // Step 4: Move to the next breed
             setCurrentIndex((prevIndex) =>
@@ -102,21 +120,25 @@ const Homepage: React.FC = () => {
         }
     };
 
-    const handleNextBreed = () => {
+    const handleNextBreed = async () => {
         setCurrentIndex((prevIndex) =>
             prevIndex < breeds.length - 1 ? prevIndex + 1 : 0 // Loop back to the start
         );
+
+        // Fetch a new cat fact when the next breed is displayed
+        const fact = await fetchCatFact();
+        setCatFact(fact);
     };
 
     const currentBreed = breeds[currentIndex];
-    console.log(currentBreed); // TODO: Remove this line
+
     return (
         <div>
             {error && <p style={{ color: 'red' }}>{error}</p>}
             {currentBreed ? (
                 <>
                     <Card {...currentBreed} />
-                    <div className= "button-container">
+                    <div className="button-container">
                         <button className="button" onClick={handleBreedSave}>Save Breed</button>
                         <button className="button" onClick={handleNextBreed}>Next Breed</button>
                     </div>
@@ -126,8 +148,8 @@ const Homepage: React.FC = () => {
             )}
             {catFact ? (
                 <div className="fact-card">
-                <h3>Random Cat Fact!</h3>
-                <p className="fact-card-text">{catFact}</p>
+                    <h3>Random Cat Fact!</h3>
+                    <p className="fact-card-text">{catFact}</p>
                 </div>
             ) : (
                 <p>Loading cat fact...</p>
@@ -138,4 +160,3 @@ const Homepage: React.FC = () => {
 };
 
 export default Homepage;
- 
