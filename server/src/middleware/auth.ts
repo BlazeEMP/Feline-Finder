@@ -9,11 +9,11 @@ declare module 'express-serve-static-core' {
 import jwt from 'jsonwebtoken';
 
 interface JwtPayload {
+    id: number;
     email: string;
 }
 
 export const authenticateToken = (req: Request, res: Response, next: NextFunction) => {
-    // TODO: verify the token exists and add the user data to the request object Completed jan 20 nancy watreas
     const authHeader = req.headers.authorization;
 
     // Check if the authorization header is present
