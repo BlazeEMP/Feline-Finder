@@ -7,7 +7,6 @@ import { jwtDecode } from 'jwt-decode';
 import Card from '../components/Card';
 
 function extractCatData(data: any) {
-    //TODO: Extract the data from the API response and and map through the array of objects to return the required data
     return data.map((item: any) => {
         const {
             breeds: [
@@ -51,7 +50,6 @@ const Homepage: React.FC = () => {
         const loadBreeds = async () => {
             try {
                 const data = await fetchBreeds();
-                // TODO : Set the breeds state with the fetched data but we need to structure the saved items to match our interface for breed
                 const structuredData = extractCatData(data);
                 setBreeds(structuredData);
             } catch (err: any) {

@@ -8,6 +8,10 @@ const Nav = () => {
                 <NavLink to='/'>Login</NavLink>
                 <NavLink to='/Homepage'>Home</NavLink>
                 <NavLink to='/SavedCats'>Potential Cat Breeds</NavLink>
+                <button onClick={() => {
+                    localStorage.removeItem('token');
+                    alert('You have been logged out');
+                }}>Logout</button>
             </div>
         </>
     )
