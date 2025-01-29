@@ -86,8 +86,8 @@ const Homepage: React.FC = () => {
             console.log('the breed exists?', isBreed);
             // Step 2: If it doesn't exist, save it
             if (!isBreed) {
-            console.log('about to save breed');
-            await saveBreed(currentBreed);
+                console.log('about to save breed');
+                await saveBreed(currentBreed);
             } else {
                 console.log('Breed already exists in the database');
             }

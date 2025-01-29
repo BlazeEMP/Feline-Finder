@@ -11,7 +11,7 @@ const router = express.Router();
 // GET /userBreeds/:userId - Get all breeds for a user by user id (should be pulled from login with JWT token???)
 router.get('/:userId', getUserBreedsById);
 
-// POST /userBreeds/:userId - Create a new user breed association (req.body should have userId and breedId)
+// POST /userBreeds - Create a new user breed association (req.body should have userId and breedId)
 router.post('/', createUserBreed);
 
 // DELETE /userBreeds/:userId/:breedId - Delete a user breed association (req.body should have userId and breedId)

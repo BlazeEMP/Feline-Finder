@@ -47,7 +47,7 @@ export const saveUserBreed = async (userId: number, breedId: string): Promise<vo
             'Content-Type': 'application/json',
             // 'Authorization': `Bearer ${localStorage.getItem('token')}`, // TODO add auth implemented on adding breeds through table, should check JWT for auth and userID
         },
-        body: JSON.stringify({ userId , breedId }),
+        body: JSON.stringify({ userId, breedId }),
     });
     if (!response.ok) {
         throw new Error('Failed to save breed to user');
