@@ -21,3 +21,28 @@
 .button:hover {
     background-color: #0056b3; /* Darker blue */
 }
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .button {
+        padding: 8px 16px;
+        font-size: 0.9rem;
+    }
+
+    .button-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+    }
+}
+
+@media (max-width: 481px) {
+    .button {
+        padding: 6px 14px;
+        font-size: 0.85rem;
+    }
+
+    .button-container {
+        gap: 10px;
+    }
+}

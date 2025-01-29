@@ -55,3 +55,42 @@
     color: #555555;
     margin-bottom: 8px;
 }
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .card {
+        width: 95%;
+        padding: 12px;
+    }
+
+    .card-title {
+        font-size: 1.3rem;
+    }
+
+    .card-description {
+        font-size: 0.95rem;
+    }
+
+    .card-details li {
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 481px) {
+    .card {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .card-title {
+        font-size: 1.2rem;
+    }
+
+    .card-description {
+        font-size: 0.9rem;
+    }
+
+    .card-details li {
+        font-size: 0.8rem;
+    }
+}
