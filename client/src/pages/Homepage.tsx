@@ -5,7 +5,6 @@ import { fetchCatFact } from '../api/catFactsApi';
 import Card from '../components/Card';
 
 function extractCatData(data: any) {
-    //TODO: Extract the data from the API response and and map through the array of objects to return the required data
     return data.map((item: any) => {
         const {
             breeds: [
@@ -49,10 +48,7 @@ const Homepage: React.FC = () => {
         const loadBreeds = async () => {
             try {
                 const data = await fetchBreeds();
-                // TODO : Set the breeds state with the fetched data but we need to structure the saved items to match our interface for breed
-                console.log('data from fetchBreeds():', data); // TODO: Remove this line
                 const structuredData = extractCatData(data);
-                console.log('structuredData from extractCatData():', structuredData); // TODO: Remove this line
                 setBreeds(structuredData);
             } catch (err) {
                 setError('Failed to fetch breeds. Please try again later.');
