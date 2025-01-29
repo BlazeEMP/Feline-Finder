@@ -127,7 +127,9 @@ const Homepage: React.FC = () => {
                 <>
                     <Card {...currentBreed} />
                     <div className="button-container">
-                        <button className="button" onClick={handleBreedSave}>Save Breed</button>
+                        if (localStorage.getItem('token')) {
+                            <button className="button" onClick={handleBreedSave}>Save Breed</button>
+                        }
                         <button className="button" onClick={handleNextBreed}>Next Breed</button>
                     </div>
                 </>
