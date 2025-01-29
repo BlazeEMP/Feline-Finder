@@ -119,11 +119,7 @@ const Homepage: React.FC = () => {
         setCatFact(fact);
     };
 
-    // this will handle loading a breed once the breeds array gets populated or we update the index
-    useEffect(() => {
-        const currentBreed = breeds[currentIndex];
-        console.log(currentBreed); // TODO: Remove this line
-    }, [currentIndex, breeds]);
+    const currentBreed = breeds[currentIndex];
 
     return (
         <div>
@@ -131,7 +127,7 @@ const Homepage: React.FC = () => {
             {currentBreed ? (
                 <>
                     <Card {...currentBreed} />
-                    <div className= "button-container">
+                    <div className="button-container">
                         <button className="button" onClick={handleBreedSave}>Save Breed</button>
                         <button className="button" onClick={handleNextBreed}>Next Breed</button>
                     </div>
@@ -141,8 +137,8 @@ const Homepage: React.FC = () => {
             )}
             {catFact ? (
                 <div className="fact-card">
-                <h3>Random Cat Fact!</h3>
-                <p className="fact-card-text">{catFact}</p>
+                    <h3>Random Cat Fact!</h3>
+                    <p className="fact-card-text">{catFact}</p>
                 </div>
             ) : (
                 <p>Loading cat fact...</p>
