@@ -17,13 +17,13 @@ export const fetchBreeds = async (): Promise<Breed[]> => {
 
 // Check if a breed exists in the database
 // TODO test in tandem with saveBreed function
-export const checkBreedExists = async (breedId: string): Promise<boolean> => {
-    const response = await fetch(`/api/breeds/${breedId}`);
-    if (!response.ok) {
-        return false;
-    }
-    return true;
-};
+// export const checkBreedExists = async (breedId: string): Promise<boolean> => {
+//     const response = await fetch(`/api/breeds/${breedId}`);
+//     if (!response.ok) {
+//         return false;
+//     }
+//     return true;
+// };
 
 // Save a breed to the database
 // TODO test this function
