@@ -26,7 +26,7 @@ This is an interactive Search App using a navigation component to search breeds 
 No installation required <!-- TODO: add installation packages/dependencies-->
 
 ## Usage:
-`Go to deployed webpage`
+Go to deployed webpage
 
 ## Credits:
 Primary contributors: Daniel Blair, Paolo Sierra; Secondary contributor: Nancy Watreas

@@ -127,9 +127,11 @@ const Homepage: React.FC = () => {
                 <>
                     <Card {...currentBreed} />
                     <div className="button-container">
-                        if (localStorage.getItem('token')) {
+                        {/* Only show the save button if the user is logged in
+                        TODO fix the statefullness of being logged in so this page can rerender the savebreeds button once you logout */}
+                        {localStorage.getItem('token') ? (
                             <button className="button" onClick={handleBreedSave}>Save Breed</button>
-                        }
+                        ) : ("Login to save breeds")}
                         <button className="button" onClick={handleNextBreed}>Next Breed</button>
                     </div>
                 </>
