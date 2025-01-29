@@ -17,3 +17,26 @@
     color: #333333;
     line-height: 1.5;
 }
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .fact-card {
+        width: 95%;
+        padding: 12px;
+    }
+
+    .fact-card-text {
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 481px) {
+    .fact-card {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .fact-card-text {
+        font-size: 0.9rem;
+    }
+}
