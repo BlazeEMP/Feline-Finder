@@ -4,9 +4,9 @@
 
 ## Websites: 
 - [GitHub Link](https://github.com/BlazeEMP/Project-2)
-- [Deployed Link](https://render.com)
+- [Deployed Link](https://feline-finder.onrender.com)
 
-## Description
+## Description:
 This is an interactive Search App using a navigation component to search breeds of cats by displaying images of cats as well as their weight, origin, life span, indoor cat, child friendly, dog friendly, and hairless, . This app was built using Node.js and Express to create a RESTful API, React for the client side and PostgreSQL and Sequelize ORM for the database and the use of JSON Web Token (JWT) for authentification.
 
 ## Application Homepage
@@ -22,30 +22,31 @@ This is an interactive Search App using a navigation component to search breeds 
 - [Tests](#tests)
 - [Contact](#contact)
 
-## Installation
-`npm install` <!-- TODO: add installation packages/dependencies-->
+## Installation:
+No installation required <!-- TODO: add installation packages/dependencies-->
 
-## Usage
-`cd server npm run dev`
+## Usage:
+`Go to deployed webpage`
 
-## Credits
+## Credits:
 Primary contributors: Daniel Blair, Paolo Sierra; Secondary contributor: Nancy Watreas
 
 ## License
 MIT
 
-## Features
-This application consist of **ADD CONTENT
+## Features:
+Save cats to users
 
-## Tests
-1. Start server: `cd server npm run dev`
-2. Start React development server: `cd client npm run dev`
+## Tests:
+No test plan
 
-## Contact
+## Contact Info:
 If there are any questions or concerns, we can be reached at:
 ##### github: https://github.com/BlazeEMP 
 ##### github: https://github.com/Narupo
 ##### github: https://github.com/noIDEA-tech
-<!-- (https://github.com/https://github.com/BlazeEMP; https://github.com/Narupo; https://github.com/noIDEA-tech) -->
 
-TODO: ADD EMAILS HERE  ##### [email: nwatreas2023@gmail.com](mailto:nwatreas2023@gmail.com)
+
+##### [email: nwatreas2023@gmail.com](mailto:nwatreas2023@gmail.com)
+##### [email: pouzumaki@gmail.com](mailto:pouzumaki@gmail.com)
+##### [email: blazelitanui@gmail.com](mailto:blazelitanui@gmail.com)
