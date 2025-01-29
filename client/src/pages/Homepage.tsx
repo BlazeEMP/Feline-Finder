@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import type Breed from '../interfaces/breedInterface';
-import { fetchBreeds, saveBreed, saveUserBreed } from '../api/breedsApi';
+import type DecodedToken from '../interfaces/decodedTokenInterface';
+import { fetchBreeds, checkBreedExists, saveBreed, saveUserBreed } from '../api/breedsApi';
 import { fetchCatFact } from '../api/catFactsApi';
+import { jwtDecode } from 'jwt-decode';
 import Card from '../components/Card';
 
 function extractCatData(data: any) {
@@ -50,13 +52,10 @@ const Homepage: React.FC = () => {
             try {
                 const data = await fetchBreeds();
                 // TODO : Set the breeds state with the fetched data but we need to structure the saved items to match our interface for breed
-                console.log('data from fetchBreeds():', data); // TODO: Remove this line
                 const structuredData = extractCatData(data);
-                console.log('structuredData from extractCatData():', structuredData); // TODO: Remove this line
                 setBreeds(structuredData);
-            } catch (err) {
-                setError('Failed to fetch breeds. Please try again later.');
-                console.error(err);
+            } catch (err: any) {
+                console.error('Failed to fetch breeds. Please try again later.', err);
             }
         };
 
@@ -80,18 +79,34 @@ const Homepage: React.FC = () => {
     const handleBreedSave = async (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
 
-        if (!breeds.length) return;
-
         const currentBreed = breeds[currentIndex];
         try {
             // Step 1: Check if the breed exists in the database (happens inside of saveBreed)
+            const isBreed = await checkBreedExists(currentBreed.id);
+            console.log('the breed exists?', isBreed);
             // Step 2: If it doesn't exist, save it
+            if (!isBreed) {
+            console.log('about to save breed');
             await saveBreed(currentBreed);
+            } else {
+                console.log('Breed already exists in the database');
+            }
 
             // Step 3: Save the breed to the user's saved breeds now that the cat definitely exists in the table so we can join them
-            await saveUserBreed(currentBreed.name);
+
+            console.log('about to save user breed');
+
+            const token = localStorage.getItem('token');
+            if (!token) {
+                console.error('No token found when saving userBreed join');
+                return;
+            }
+            const decodedToken = jwtDecode<DecodedToken>(token); // token parsed out with jwtDecode library
+            const userId = decodedToken.id; // userId extracted from decoded token
+            await saveUserBreed(userId, currentBreed.id);
 
             // Fetch a new cat fact when the breed is saved
+            console.log('about to fetch cat fact');
             const fact = await fetchCatFact();
             setCatFact(fact);
 
@@ -115,9 +130,7 @@ const Homepage: React.FC = () => {
         setCatFact(fact);
     };
 
-    // this will handle loading a breed once the breeds array gets populated or we update the index
     const currentBreed = breeds[currentIndex];
-    console.log(currentBreed); // TODO: Remove this line
 
     return (
         <div>
